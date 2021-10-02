@@ -27,7 +27,7 @@ export const Gallery: React.FC<GalleryProps> = ({categories}) => {
   return (
     <GalleryWrapperStyled>
       {pictures.map(p => (
-        <ImgCard categories={categories} title="Numbers">
+        <ImgCard categories={categories} url={p}>
         <ImageStyled src={p}>
         </ImageStyled></ImgCard>
       ))}

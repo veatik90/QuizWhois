@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Children } from 'react'
+import { Category } from './Category'
 import { CategoryProps } from './Category/interfaces'
 
 type CategoryListProps = {
@@ -8,7 +9,7 @@ type CategoryListProps = {
 
 export const CategoryList: React.FC<CategoryListProps> = ({
   categories,
-  onRemove
+  onRemove,children
 }) => {
   if (categories.length === 0) {
     return <p >Добавьте первую категорию</p>
@@ -28,8 +29,8 @@ export const CategoryList: React.FC<CategoryListProps> = ({
         return (
           <li  key={c.id}>
             <label>
+             <Category id={c.id} title={c.title} cards={c.cards}></Category>
              
-              <span>{c.title}</span>
               <i
                 onClick={event => removeHandler(event, c.id)}
               >

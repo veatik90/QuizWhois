@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { ImgCardProps } from "./interfaces";
-import { NumberStyled, ExitButtonStyled } from "./styles";
+import { NumberStyled } from "./styles";
 import styled from 'styled-components';
 
 const DropDownContainer = styled("div")`
@@ -40,44 +40,50 @@ const ListItem = styled("li")`
   margin-bottom: 0.8em;
 `;
 
-/** Для компонентов пишем комментарий - краткое описание */
-export const ImgCard: FC<ImgCardProps> = ({ children, title, categories }) => {
-  /** https://reactjs.org/docs/hooks-reference.html#usestate */
-  const [name, setName] = useState("hello");
+/** Карточка */
+export const ImgCard: FC<ImgCardProps> = ({ children, url, categories }) => {
+
   const [isDisabled, setIsDisabled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [cards, setCards] = useState<ImgCardProps[]>([])
+  const onOptionClicked = value => () => {
+    setSelectedOption(value);
+    setIsOpen(false);
+    console.log(selectedOption);
+  };
+
+
+
+    const addHandler = (url: string, cat) => {
+      const addCard: ImgCardProps = {
+        url: url,
+        categories: []}
+      categories.filter(c => c.title === cat)[0].cards.push(addCard)
+     console.log(categories.filter(c => c.title === cat)[0].cards[0].url)
+     setCards(prev => [addCard, ...prev])
+     console.log(cards)
+    }
+  
   const toggling = () => setIsOpen(!isOpen);
 
-  /** https://reactjs.org/docs/handling-events.html */
   function handleClickButton() {
-    setName("hi");
     setIsDisabled(true);
   }
-  /** https://reactjs.org/docs/fragments.html */
   return (
     <>
-
       <DropDownContainer>
-        <DropDownHeader onClick={toggling}>Mangoes</DropDownHeader>
+        <DropDownHeader onClick={toggling}> {selectedOption || "Категории"}</DropDownHeader>
         {isOpen && (
           <DropDownListContainer>
             <DropDownList>
               {categories.map(c =>
-
-
-
-
-                <ListItem> {c.title}</ListItem>)}
-
+                <ListItem onClick={onOptionClicked(c.title)} > {c.title}</ListItem>)}
             </DropDownList>
           </DropDownListContainer>
-        )}
+        )}   <button onClick={() => addHandler(url,selectedOption)}>Добавить в категорию</button>
       </DropDownContainer>
-
-      <ExitButtonStyled onClick={handleClickButton} isDisabled={isDisabled}>
-        {title}{name}
-      </ExitButtonStyled>
-      <p>{name}</p>
+     {url}
       <NumberStyled>{children}</NumberStyled>
     </>
   );
