@@ -1,11 +1,13 @@
-import { CategoryProps } from './../../favorites/Category/interfaces';
+import { CategoryProps } from '../../../favorites/Category/interfaces';
 
 export interface ImgCardProps {
     /** Для интерфейсов пишем комментарии. Название написал для примера */
     /** Текстовое наименование числа */
+  
+    id: number;
+    name: string
     url: string;
-    categories: CategoryProps[]
-
+    date: Date;
   }
 
  

@@ -1,5 +1,5 @@
-import { ImgCardProps } from '../../gallery/ImgCard/interfaces';
-import { ImgCard } from '../../gallery/ImgCard/index';
+import { ImgCardProps } from '../../gallery/ImgCardContainer/ImgCard/interfaces';
+import { ImgCard } from '../../gallery/ImgCardContainer/ImgCard/index';
 export interface CategoryProps {
     title: string
     id: number

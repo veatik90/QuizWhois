@@ -5,6 +5,7 @@ import { CategoryProps } from './Category/interfaces'
 type CategoryListProps = {
   categories: CategoryProps[]
   onRemove: (id: number) => void
+  onCreateCategory(title: string): void
 }
 
 export const CategoryList: React.FC<CategoryListProps> = ({

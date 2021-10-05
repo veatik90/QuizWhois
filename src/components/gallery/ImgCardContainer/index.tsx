@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
-import { ImgCardProps } from "./interfaces";
-import { NumberStyled } from "./styles";
+import { CategoryProps } from "../../favorites/Category/interfaces";
 import styled from 'styled-components';
+import { ImgCard } from "./ImgCard";
 
 const DropDownContainer = styled("div")`
   width: 10.5em;
@@ -39,14 +39,24 @@ const ListItem = styled("li")`
   list-style: none;
   margin-bottom: 0.8em;
 `;
+export interface ImgCardContainerProps {
+    /** Для интерфейсов пишем комментарии. Название написал для примера */
+    /** Текстовое наименование числа */
+    categories: CategoryProps[]
+    name: string
+    url: string;
+    date: Date;
+    id: number;
+    onAddToCategory(categoryName: string, pictureId: number): void
 
+  }
 /** Карточка */
-export const ImgCard: FC<ImgCardProps> = ({ children, url, categories }) => {
+export const ImgCardContainer: FC<ImgCardContainerProps> = ({  categories, onAddToCategory,  id, name, url, date }) => {
 
   const [isDisabled, setIsDisabled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [cards, setCards] = useState<ImgCardProps[]>([])
+  const [selectedOption, setSelectedOption] = useState('');
+  
   const onOptionClicked = value => () => {
     setSelectedOption(value);
     setIsOpen(false);
@@ -54,16 +64,6 @@ export const ImgCard: FC<ImgCardProps> = ({ children, url, categories }) => {
   };
 
 
-
-    const addHandler = (url: string, cat) => {
-      const addCard: ImgCardProps = {
-        url: url,
-        categories: []}
-      categories.filter(c => c.title === cat)[0].cards.push(addCard)
-     console.log(categories.filter(c => c.title === cat)[0].cards[0].url)
-     setCards(prev => [addCard, ...prev])
-     console.log(cards)
-    }
   
   const toggling = () => setIsOpen(!isOpen);
 
@@ -71,7 +71,7 @@ export const ImgCard: FC<ImgCardProps> = ({ children, url, categories }) => {
     setIsDisabled(true);
   }
   return (
-    <>
+    <> <ImgCard id={id} name={name} date={date } url={url}></ImgCard>
       <DropDownContainer>
         <DropDownHeader onClick={toggling}> {selectedOption || "Категории"}</DropDownHeader>
         {isOpen && (
@@ -81,10 +81,9 @@ export const ImgCard: FC<ImgCardProps> = ({ children, url, categories }) => {
                 <ListItem onClick={onOptionClicked(c.title)} > {c.title}</ListItem>)}
             </DropDownList>
           </DropDownListContainer>
-        )}   <button onClick={() => addHandler(url,selectedOption)}>Добавить в категорию</button>
+        )}   <button onClick={() => onAddToCategory(selectedOption,id)}>Добавить в категорию</button>
       </DropDownContainer>
-     {url}
-      <NumberStyled>{children}</NumberStyled>
+     
     </>
   );
 };
