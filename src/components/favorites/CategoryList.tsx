@@ -39,19 +39,14 @@ export const CategoryList: React.FC<CategoryListProps> = ({
     <ul>
       {categories.map(c => {
         return (
-            <DivStyled 
-              
+            <div 
               key={c.id}
             >
-              <Div1Styled>
+
                 <Category  id={c.id} title={c.title} cards={c.cards}/>
-              </Div1Styled>
-              <Div1Styled>
-                <DeleteButton
-                  onClick={event => removeHandler(event, c.id)}
-                />
-              </Div1Styled>
-            </DivStyled>
+
+           
+            </div>
         )
       })}
     </ul>
