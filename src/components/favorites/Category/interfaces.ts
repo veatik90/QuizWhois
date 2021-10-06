@@ -1,7 +1,6 @@
-import { ImgCardProps } from '../../gallery/ImgCardContainer/ImgCard/interfaces';
-import { ImgCard } from '../../gallery/ImgCardContainer/ImgCard/index';
+import { ImgCardProps } from '../../gallery/ImgCardContainer/ImgCard/interfaces'
 export interface CategoryProps {
-    title: string
-    id: number
-    cards:ImgCardProps[]
-  }
+  title: string
+  id: number
+  cards:ImgCardProps[]
+}

@@ -1,26 +1,30 @@
-import { FC, useState,useEffect } from "react";
-import { CategoryProps } from "./interfaces";
+import { FC } from "react"
+import { CategoryProps } from "./interfaces"
 import {ImageStyled} from "../../gallery/styles"
-/** Категория */
-export const Category: FC<CategoryProps> = ({ children, title, cards }) => {
-  const [name, setName] = useState("hello");
-  const [isDisabled, setIsDisabled] = useState(false);
-  let [imgCards, setImgCards] = useState(cards)
-  useEffect(() => {
-    setImgCards(cards)
-}, [cards])
-  function handleClickButton() {
-    setName("hi");
-    setIsDisabled(true);
-  }
-  if (cards.length === 0) {
-    return <p >{title} Добавьте rfhnjx</p>
-  }
-  return (
-    <>{title}
-   
-{cards[0].url}
+import styled from 'styled-components'
 
-    </>
-  );
-};
+const H = styled.h4`
+  text-align:center
+`
+
+/** Категория */
+export const Category: FC<CategoryProps> = ({  title, cards }) => {
+  if (cards.length === 0) {
+    return  <><H>{title}</H>
+      <div style={{
+        width:'500px' ,
+        height: '100px',
+        border:'dashed',
+        padding: 15,
+      }}>
+      </div></>
+  }
+  else return (
+    <div style={{
+      border:'inset',
+      padding: 15,
+    }}>
+      {cards.map(element => <ImageStyled key={element.id} src={element.url}/>)}
+    </div>
+  )
+}

@@ -1,14 +1,13 @@
-import React from "react";
+import React from "react"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
-} from "react-router-dom";
-import { Gallery } from "./components/gallery";
+} from "react-router-dom"
+import { Gallery } from "./components/gallery"
 import { CategoryPage } from './components/CategoryPage'
-  const  App: React.FunctionComponent =()=>
-   (
+  const App: React.FunctionComponent = () =>
+  (
     <Router>
       <div className="container">
         <Switch>
@@ -19,11 +18,8 @@ import { CategoryPage } from './components/CategoryPage'
     </Router>
   )
 
-
-
-
 function Home() {
-  return <h2>Home</h2>;
+  return <h2>Home</h2>
 }
 
 export default App

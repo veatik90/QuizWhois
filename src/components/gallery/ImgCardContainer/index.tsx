@@ -1,13 +1,13 @@
-import { FC, useState } from "react";
-import { CategoryProps } from "../../favorites/Category/interfaces";
-import styled from 'styled-components';
-import { ImgCard } from "./ImgCard";
-
+import { FC, useState } from "react"
+import { CategoryProps } from "../../favorites/Category/interfaces"
+import styled from 'styled-components'
+import { ImgCard } from "./ImgCard"
+import {Button} from "../../favorites/CategoryForm"
 const DropDownContainer = styled("div")`
   width: 10.5em;
   margin: 0 auto;
-`;
-
+  display: inline;
+`
 const DropDownHeader = styled("div")`
   margin-bottom: 0.8em;
   padding: 0.4em 2em 0.4em 1em;
@@ -16,9 +16,9 @@ const DropDownHeader = styled("div")`
   font-size: 1.3rem;
   color: #3faffa;
   background: #ffffff;
-`;
+`
 
-const DropDownListContainer = styled("div")``;
+const DropDownListContainer = styled("div")``
 
 const DropDownList = styled("ul")`
   padding: 0;
@@ -33,42 +33,38 @@ const DropDownList = styled("ul")`
   &:first-child {
     padding-top: 0.8em;
   }
-`;
+`
 
 const ListItem = styled("li")`
   list-style: none;
   margin-bottom: 0.8em;
-`;
+`
 export interface ImgCardContainerProps {
-    /** Для интерфейсов пишем комментарии. Название написал для примера */
-    /** Текстовое наименование числа */
-    categories: CategoryProps[]
-    name: string
-    url: string;
-    date: Date;
-    id: number;
-    onAddToCategory(categoryName: string, pictureId: number): void
+  /** Контейнер карточки */
+  categories: CategoryProps[]
+  name: string
+  url: string
+  date: Date
+  id: number
+  onAddToCategory(categoryName: string, pictureId: number): void
+}
 
-  }
-/** Карточка */
-export const ImgCardContainer: FC<ImgCardContainerProps> = ({  categories, onAddToCategory,  id, name, url, date }) => {
+export const ImgCardContainer: FC<ImgCardContainerProps> = ({  
+  categories, onAddToCategory,  id, name, url, date }) => {
 
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedOption, setSelectedOption] = useState('')
   
   const onOptionClicked = value => () => {
-    setSelectedOption(value);
-    setIsOpen(false);
-    console.log(selectedOption);
-  };
-
-
+    setSelectedOption(value)
+    setIsOpen(false)
+  }
   
-  const toggling = () => setIsOpen(!isOpen);
+  const toggling = () => setIsOpen(!isOpen)
 
   function handleClickButton() {
-    setIsDisabled(true);
+    setIsDisabled(true)
   }
   return (
     <> <ImgCard id={id} name={name} date={date } url={url}></ImgCard>
@@ -81,9 +77,10 @@ export const ImgCardContainer: FC<ImgCardContainerProps> = ({  categories, onAdd
                 <ListItem onClick={onOptionClicked(c.title)} > {c.title}</ListItem>)}
             </DropDownList>
           </DropDownListContainer>
-        )}   <button onClick={() => onAddToCategory(selectedOption,id)}>Добавить в категорию</button>
+        )}   
+        <Button onClick={() => onAddToCategory(selectedOption,id)}>Добавить в категорию</Button>
       </DropDownContainer>
      
     </>
-  );
-};
+  )
+}
