@@ -1,6 +1,6 @@
 import {ToggleStyled} from "./styles";
 import {ToggleProps} from "./interfaces";
-import {ChangeEvent, FC} from "react";
+import React, {ChangeEvent, FC} from "react";
 
 export const Toggle: FC<ToggleProps> = (props) => {
     const handlerChange = (event: ChangeEvent<HTMLSelectElement>): void => {

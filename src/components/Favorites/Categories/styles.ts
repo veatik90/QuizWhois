@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components/macro";
 
 export const CategoryStyled = styled.div`
     padding-bottom: 15px;
@@ -15,5 +15,7 @@ export const CategoryTitleStyled = styled.h3`
 `;
 
 export const ImagesListStyled = styled.div`
-
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
 `;

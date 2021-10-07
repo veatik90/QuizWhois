@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components/macro";
 
 export const ToggleStyled = styled.select`
   padding: 10px 10px;

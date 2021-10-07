@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components/macro";
 
 export const InterfaceFormStyled = styled.form`
   margin-top: 15px;

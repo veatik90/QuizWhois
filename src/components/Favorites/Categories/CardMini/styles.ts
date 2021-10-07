@@ -1,10 +1,9 @@
-import styled from "styled-components"
+import styled from "styled-components/macro";
 
-export const ImageStyled = styled.img`
+export const ImageCardMiniStyled = styled.img`
     object-fit: cover;
     height: 104px;
-    width: 162px;
-    margin: 0 15px 15px 0;
+    width: 100%;
     border-radius: 5px;
     cursor: pointer;
     
