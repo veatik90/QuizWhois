@@ -27,6 +27,8 @@ types:
 bugfix - fixing bug
 f - everything that's not a bug
 
+# `Direct pushes to master and develop are prohibited!`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
