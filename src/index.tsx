@@ -1,20 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ThemeProvider, createTheme} from '@mui/material'
+import {ThemeProvider} from '@mui/material'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {theme} from './themes'
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#61dafb'
-    },
-    secondary: {
-      main: '#da61bf'
-    }
-  }
-});
 
 ReactDOM.render(
   <React.StrictMode>
