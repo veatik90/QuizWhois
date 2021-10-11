@@ -6,7 +6,10 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "airbnb",
+        "airbnb-typescript"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -14,7 +17,10 @@
             "jsx": true
         },
         "ecmaVersion": 13,
-        "sourceType": "module"
+        "sourceType": "module",
+        "parserOptions": {
+            "project": "./tsconfig.json"
+        }
     },
     "plugins": [
         "react",
