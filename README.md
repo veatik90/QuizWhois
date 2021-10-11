@@ -1,4 +1,3 @@
-/* eslint-disable */
 # Commit message
 
 When committing, the message has to be in this form:
