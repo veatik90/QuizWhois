@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { NoMatch } from "./pages/NoMatch";
+import { NotFound } from "./pages/NotFound";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
           <p>home</p>
         </Route>
         <Route path="*">
-          <NoMatch />
+          <NotFound />
         </Route>
       </Switch>
     </Router>
