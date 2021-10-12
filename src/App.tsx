@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NotFound } from './pages/NotFound';
 
-function App() {
+const App: FC = () => {
   return (
     <Router>
       <Switch>
@@ -14,6 +15,6 @@ function App() {
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;
