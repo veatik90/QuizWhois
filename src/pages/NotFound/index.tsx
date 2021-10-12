@@ -1,1 +1,3 @@
-export const NotFound = () => <p>404 - page not found</p>;
+import { FC } from 'react';
+
+export const NotFound: FC = () => <p>404 - page not found</p>;
