@@ -1,5 +1,5 @@
 import {createTheme} from '@mui/material'
-import './index.css';
+import '../index.css';
 
 export const theme = createTheme({
   palette: {
