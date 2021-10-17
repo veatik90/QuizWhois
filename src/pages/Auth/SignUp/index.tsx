@@ -106,75 +106,73 @@ export const SignUp: FC<SignUpProps> = ({ setOpenSignUp }) => {
     }
   });
   return (
-    <>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              onBlur={handleBlurFieldEmail}
-              error={emailError}
-              helperText={emailHelperText}
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              type="email"
-            />
-            <TextField
-              onBlur={handleBlurFieldPassword}
-              error={passwordError}
-              helperText={passwordHelperText}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <TextField
-              onBlur={handleBlurFieldConfirmPassword}
-              error={confirmPasswordError}
-              helperText={confirmPasswordHelperText}
-              margin="normal"
-              required
-              fullWidth
-              name="confirm-password"
-              label="Confirm Password"
-              type="password"
-              id="confirm-password"
-              autoComplete="current-password"
-            />
-            {authErrorMessage}
-            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-            <Button disabled={isDisabledSubmit} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign Up
-            </Button>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            onBlur={handleBlurFieldEmail}
+            error={emailError}
+            helperText={emailHelperText}
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            type="email"
+          />
+          <TextField
+            onBlur={handleBlurFieldPassword}
+            error={passwordError}
+            helperText={passwordHelperText}
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <TextField
+            onBlur={handleBlurFieldConfirmPassword}
+            error={confirmPasswordError}
+            helperText={confirmPasswordHelperText}
+            margin="normal"
+            required
+            fullWidth
+            name="confirm-password"
+            label="Confirm Password"
+            type="password"
+            id="confirm-password"
+            autoComplete="current-password"
+          />
+          {authErrorMessage}
+          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+          <Button disabled={isDisabledSubmit} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            Sign Up
+          </Button>
 
-            <Divider />
-            <p>
-              Already have an account?
-              <Button onClick={() => setOpenSignUp(false)}>SignIn</Button>
-            </p>
-          </Box>
+          <Divider />
+          <p>
+            Already have an account?
+            <Button onClick={() => setOpenSignUp(false)}>SignIn</Button>
+          </p>
         </Box>
-      </Container>
-    </>
+      </Box>
+    </Container>
   );
 };
