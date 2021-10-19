@@ -1,3 +1,3 @@
 export interface SignUpProps {
-  setOpenSignUp(open: boolean): void;
+  setIsOpenedSignUp(open: boolean): void;
 }

@@ -13,7 +13,7 @@ import { Divider } from '@mui/material';
 import { useHistory } from 'react-router';
 import { SignUpProps } from './interfaces';
 
-export const SignUp: FC<SignUpProps> = ({ setOpenSignUp }) => {
+export const SignUp: FC<SignUpProps> = ({ setIsOpenedSignUp }) => {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [emailHelperText, setEmailHelperText] = useState<string>('');
   const [emailValue, setEmailValue] = useState<string>('');
@@ -169,7 +169,7 @@ export const SignUp: FC<SignUpProps> = ({ setOpenSignUp }) => {
           <Divider />
           <p>
             Already have an account?
-            <Button onClick={() => setOpenSignUp(false)}>SignIn</Button>
+            <Button onClick={() => setIsOpenedSignUp(false)}>SignIn</Button>
           </p>
         </Box>
       </Box>

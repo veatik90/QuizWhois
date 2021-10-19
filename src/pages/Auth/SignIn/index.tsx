@@ -4,18 +4,16 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useHistory } from 'react-router';
-import { Divider } from '@mui/material';
+import { Grid } from '@mui/material';
 import { SignInProps } from './interfaces';
+import { ButtonStyled } from './styles';
 
-export const SignIn: FC<SignInProps> = ({ setOpenSignUp }) => {
+export const SignIn: FC<SignInProps> = ({ setIsOpenedSignUp }) => {
   const history = useHistory();
-  const success = () => history.push('/');
   const [authErrorMessage, setAuthErrorMessage] = React.useState(undefined);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -26,10 +24,13 @@ export const SignIn: FC<SignInProps> = ({ setOpenSignUp }) => {
         email: data.get('email'),
         password: data.get('password'),
       });
-      success();
+      history.push('/');
     } catch (err: any) {
       setAuthErrorMessage(err.message);
     }
+  };
+  const openSignUp = () => {
+    setIsOpenedSignUp(true);
   };
 
   return (
@@ -68,14 +69,17 @@ export const SignIn: FC<SignInProps> = ({ setOpenSignUp }) => {
             id="password"
             autoComplete="current-password"
           />
-          {authErrorMessage}
-          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+          <Typography variant="body2" sx={{ color: '#FF4040' }}>
+            {authErrorMessage}
+          </Typography>
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
-
-          <Divider />
-          <Button onClick={() => setOpenSignUp(true)}>Create a New Account</Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <ButtonStyled onClick={openSignUp}>Don&apos;t have an account?</ButtonStyled>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>
