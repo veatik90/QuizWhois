@@ -1,7 +1,7 @@
-import { Dispatch } from 'react';
+import { useCallback, useState } from 'react';
 import { AxiosResponse } from 'axios';
-import { sendRequest } from './utils/sendRequest';
-import { HttpMethod } from './utils/constants';
+import { createPostRequest } from './utils/createRequest';
+import { PostLazyRequestResponse } from '../interfaces';
 
 /**
  * The axios hook send a http request in server and takes a response,
@@ -33,17 +33,20 @@ import { HttpMethod } from './utils/constants';
  *  }
  * }
  */
-export const useAxiosPostLazy = (
-  setOnSuccess: Dispatch<AxiosResponse | null>,
-  setOnError: Dispatch<AxiosResponse | undefined | null>,
-  setIsLoading: Dispatch<boolean>,
-) => {
-  const requestPostLazy = (url: string, body?: Record<string, unknown>) => {
-    const request = sendRequest(setOnSuccess, setOnError, setIsLoading);
-    request(HttpMethod.POST, url, body);
-  };
+export const useAxiosPostLazy = (): PostLazyRequestResponse => {
+  const [response, setResponse] = useState<AxiosResponse | null>(null);
+  const [error, setError] = useState<AxiosResponse | undefined | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const postRequest = useCallback(
+    (url: string, body: Record<string, unknown>) => createPostRequest(setResponse, setError, setIsLoading)(url, body),
+    [],
+  );
 
   return {
-    requestPostLazy,
+    postRequest,
+    response,
+    error,
+    isLoading,
   };
 };

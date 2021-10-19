@@ -1,7 +1,7 @@
-import { Dispatch } from 'react';
+import { useCallback, useState } from 'react';
 import { AxiosResponse } from 'axios';
-import { sendRequest } from './utils/sendRequest';
-import { HttpMethod } from './utils/constants';
+import { createGetRequest } from './utils/createRequest';
+import { GetLazyRequestResponse } from '../interfaces';
 
 /**
  * The axios hook send a http request in server and takes a response,
@@ -33,17 +33,17 @@ import { HttpMethod } from './utils/constants';
  *  }
  * }
  */
-export const useAxiosGetLazy = (
-  setOnSuccess: Dispatch<AxiosResponse | null>,
-  setOnError: Dispatch<AxiosResponse | undefined | null>,
-  setIsLoading: Dispatch<boolean>,
-) => {
-  const requestGetLazy = (url: string) => {
-    const request = sendRequest(setOnSuccess, setOnError, setIsLoading);
-    request(HttpMethod.GET, url);
-  };
+export const useAxiosGetLazy = (): GetLazyRequestResponse => {
+  const [response, setResponse] = useState<AxiosResponse | null>(null);
+  const [error, setError] = useState<AxiosResponse | undefined | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const getRequest = useCallback((url: string) => createGetRequest(setResponse, setError, setIsLoading)(url), []);
 
   return {
-    requestGetLazy,
+    getRequest,
+    response,
+    error,
+    isLoading,
   };
 };
