@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { HttpMethod, useAxios } from './hooks/useAxios';
+import { AxiosResponse } from 'axios';
 import { NotFound } from './pages/NotFound';
+import { useAxiosPostLazy } from './hooks/axios/useAxiosPostLazy';
 
 function urlExample() {
   const apiKey = 'AIzaSyBKTdCye6Aaxf0iXTw-jTCtUww46_cB-xI';
@@ -13,9 +14,15 @@ function urlExample() {
 const body = { email: 'vasdsxxad@gmail.com', password: '234234ddfdsfedac', returnSecureToken: true };
 
 const App: FC = () => {
-  const { data, error, isLoading } = useAxios(HttpMethod.POST, urlExample().postSuccess, body);
-  // eslint-disable-next-line no-console
-  console.log(data, error, isLoading);
+  const [onSuccess, setOnSuccess] = useState<AxiosResponse | null>(null);
+  const [onError, setOnError] = useState<AxiosResponse | undefined | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { requestPostLazy } = useAxiosPostLazy(setOnSuccess, setOnError, setIsLoading);
+
+  useEffect(() => {
+    requestPostLazy(urlExample().postSuccess, body);
+  }, []);
+  console.log(onSuccess, onError, isLoading);
 
   return (
     <Router>

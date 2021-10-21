@@ -1,33 +1,37 @@
-import { useEffect, useState } from 'react';
-import { AxiosResponse, AxiosError } from 'axios';
-import { axiosInstance } from '../configs/axios';
+import { useState } from 'react';
+import { AxiosResponse } from 'axios';
+import { sendRequest } from './axios/utils/sendRequest';
 
 export enum HttpMethod {
   GET = 'get',
   POST = 'post',
 }
 
-export function useAxios(requestType: HttpMethod, url: string, body?: Record<string, unknown>) {
-  const [data, setData] = useState<AxiosResponse | null>(null);
-  const [error, setError] = useState<AxiosResponse | undefined | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+/** TODO: Добавить комментарий как работать с хуком */
+// useAxiosLazy (без реквест типа).
+// useAxios (с реквестом). Как было раньше.
 
-  useEffect(() => {
-    axiosInstance[requestType](url, body)
-      .then((response: AxiosResponse) => {
-        setData(response);
-        setError(null);
-      })
-      .catch((response: AxiosError) => {
-        setError(response.response);
-        setData(null);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+/**
+ * Будет 4 хука: useAxiosGet, useAxiosGetLazy, useAxiosPost, useAxiosPostLazy.
+ */
+export function useAxios() {
+  const [onSuccess, setOnSuccess] = useState<AxiosResponse | null>(null);
+  const [onError, setOnError] = useState<AxiosResponse | undefined | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const getRequest = (url: string) => {
+  //   const request = sendRequest(setData, setError, setIsLoading);
+  //   request(HttpMethod.POST, url, body);
+  // };
+  const postRequest = (url: string, body?: Record<string, unknown>) => {
+    const request = sendRequest(setOnSuccess, setOnError, setIsLoading);
+    request(HttpMethod.POST, url, body);
+  };
 
   return {
-    data,
-    error,
+    // getRequest,
+    postRequest,
+    onSuccess,
+    onError,
     isLoading,
   };
 }
