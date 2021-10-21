@@ -37,7 +37,7 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "lint:types": "tsc --noEmit",
-    "lint": "eslint --max-warnings=0 \"src/**/*.{js,jsx, ts,tsx}\" --quiet --fix && yarn lint:types"
+    "lint": "eslint --max-warnings=0 \"src/**/*.{js,jsx, ts,tsx}\"  --fix && yarn lint:types"
   },
   "eslintConfig": {
     "extends": [

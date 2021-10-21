@@ -29,11 +29,13 @@
       "import/prefer-default-export": "off",
       "object-curly-newline": "off",
       "arrow-body-style":"off",
+      "func-names":"off",
       "max-len": [
         1,
         {
           "ignoreStrings": true,
-          "ignoreTemplateLiterals": true
+          "ignoreTemplateLiterals": true,
+          "code": 120
         }
       ]
     },
