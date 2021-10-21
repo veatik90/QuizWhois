@@ -1,7 +1,6 @@
 import { Button, Typography } from '@mui/material';
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-// import { boxStyled, stackStyled } from './styles';
 import { BoxStyled, StackStyled } from './styles';
 import NotFoundImage from './assets/NotFoundImage.png';
 
