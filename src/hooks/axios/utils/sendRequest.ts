@@ -1,9 +1,8 @@
 /* eslint-disable */
 import { AxiosError, AxiosResponse } from 'axios';
 import { axiosInstance } from '../../../configs/axios';
-import { Dispatch } from "react";
+import { Dispatch } from 'react';
 
-/** onSuccess, onError - обработчики. */
 export const sendRequest = (
   setOnSuccess: Dispatch<AxiosResponse | null>,
   setOnError: Dispatch<AxiosResponse | undefined | null>,
