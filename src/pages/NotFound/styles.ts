@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
 
-export const StyledBox = styled(Box)`
+export const BoxStyled = styled(Box)`
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -10,7 +10,7 @@ export const StyledBox = styled(Box)`
   justify-content: center;
 `;
 
-export const StyledStack = styled(Stack)`
+export const StackStyled = styled(Stack)`
   direction: column;
   justify-content: center;
   align-items: center;
