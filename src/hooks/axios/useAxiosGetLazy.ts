@@ -36,9 +36,12 @@ import { GetLazyRequestResponse } from '../interfaces';
 export const useAxiosGetLazy = (): GetLazyRequestResponse => {
   const [response, setResponse] = useState<AxiosResponse | null>(null);
   const [error, setError] = useState<AxiosResponse | undefined | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getRequest = useCallback((url: string) => createGetRequest(setResponse, setError, setIsLoading)(url), []);
+  const getRequest = useCallback((url: string) => {
+    setIsLoading(true);
+    createGetRequest(setResponse, setError, setIsLoading)(url);
+  }, []);
 
   return {
     getRequest,

@@ -36,12 +36,12 @@ import { PostLazyRequestResponse } from '../interfaces';
 export const useAxiosPostLazy = (): PostLazyRequestResponse => {
   const [response, setResponse] = useState<AxiosResponse | null>(null);
   const [error, setError] = useState<AxiosResponse | undefined | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const postRequest = useCallback(
-    (url: string, body: Record<string, unknown>) => createPostRequest(setResponse, setError, setIsLoading)(url, body),
-    [],
-  );
+  const postRequest = useCallback((url: string, body: Record<string, unknown>) => {
+    setIsLoading(true);
+    createPostRequest(setResponse, setError, setIsLoading)(url, body);
+  }, []);
 
   return {
     postRequest,
