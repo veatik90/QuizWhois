@@ -1,33 +1,21 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import { createPostRequest } from './utils/createRequest';
-import { RequestResponse } from '../interfaces';
+import { RequestResponse } from 'interfaces';
 
 /**
- * The axios hook send a http request in server and takes a response,
- * which transferring you.
- *
- * The axios hook have self state.
- * He give you self state that are response of server,
- * namely success, error, isLoading.
+ * This hook triggered once when a page is rendering.
+ * He send a http POST request in server and takes a response.
  *
  * USE:
- * It call the hook at top level of component
- * by taking her request function and her states.
- * then the requestPost call in place where you want send http request.
+ * It call the hook at top level of component provide url and body.
+ * Using data of server.
  *
  * EXAMPLE:
- * const { requestPost, onSuccess, onError, isLoading } = useAxiosPost();
+ * const { response, error, isLoading } = useAxiosPost(url, body);
  *
  * handlerOnEvent(data: Record<string, unknown>) {
- *   const url = '/example-url';
- *   requestPost(url, data);
- * }
- *
- * useEffect() {
- *  if (onSuccess) {
- *    ...
- *  }
+ *   console.log(response);
  * }
  */
 export const useAxiosPost = (url: string, body: Record<string, unknown>): RequestResponse => {

@@ -2,7 +2,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { Dispatch } from 'react';
 import { axiosInstance } from '../../../configs/axios';
-import { CreateRequest } from '../../interfaces';
+import { CreateRequest } from '../interfaces';
 import { HttpMethod } from './constants';
 
 function createRequest(
