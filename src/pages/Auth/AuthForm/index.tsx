@@ -10,11 +10,26 @@ import { Grid } from '@mui/material';
 import { AuthFormProps } from './interfaces';
 import { ButtonStyled } from '../SignIn/styles';
 // eslint-disable-next-line
-export const AuthForm: FC<AuthFormProps> = ({ isSignUp, onSubmit, authErrorMessage, setIsOpenedSignUp }) => {
-  const openSignIn = () => {
+export const AuthForm: FC<AuthFormProps> = ({
+  isSignUp,
+  onSubmit,
+  authErrorMessage,
+  setIsOpenedSignUp,
+  handleBlurFieldPassword,
+  handleBlurFieldEmail,
+  handleBlurFieldConfirmPassword,
+  isDisabledSubmit,
+  confirmPasswordHelperText,
+  passwordHelperText,
+  emailHelperText,
+  passwordError,
+  emailError,
+  confirmPasswordError,
+}) => {
+  const handleOpenSignIn = () => {
     setIsOpenedSignUp(false);
   };
-  const openSignUp = () => {
+  const handleOpenSignUp = () => {
     setIsOpenedSignUp(true);
   };
   return (
@@ -40,6 +55,9 @@ export const AuthForm: FC<AuthFormProps> = ({ isSignUp, onSubmit, authErrorMessa
         )}
         <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
+            onBlur={handleBlurFieldEmail}
+            error={emailError}
+            helperText={emailHelperText}
             margin="normal"
             required
             fullWidth
@@ -48,8 +66,12 @@ export const AuthForm: FC<AuthFormProps> = ({ isSignUp, onSubmit, authErrorMessa
             name="email"
             autoComplete="email"
             autoFocus
+            type="email"
           />
           <TextField
+            onBlur={handleBlurFieldPassword}
+            error={passwordError}
+            helperText={passwordHelperText}
             margin="normal"
             required
             fullWidth
@@ -59,24 +81,39 @@ export const AuthForm: FC<AuthFormProps> = ({ isSignUp, onSubmit, authErrorMessa
             id="password"
             autoComplete="current-password"
           />
+          {isSignUp && (
+            <TextField
+              onBlur={handleBlurFieldConfirmPassword}
+              error={confirmPasswordError}
+              helperText={confirmPasswordHelperText}
+              margin="normal"
+              required
+              fullWidth
+              name="confirm-password"
+              label="Confirm Password"
+              type="password"
+              id="confirm-password"
+              autoComplete="current-password"
+            />
+          )}
           <Typography variant="body2" sx={{ color: '#FF4040' }}>
             {authErrorMessage}
           </Typography>
           {!isSignUp ? (
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button disabled={isDisabledSubmit} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
           ) : (
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button disabled={isDisabledSubmit} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
           )}
           <Grid container justifyContent="flex-end">
             <Grid item>
               {!isSignUp ? (
-                <ButtonStyled onClick={openSignUp}>Don&apos;t have an account?</ButtonStyled>
+                <ButtonStyled onClick={handleOpenSignUp}>Don&apos;t have an account?</ButtonStyled>
               ) : (
-                <ButtonStyled onClick={openSignIn}>Already have an account?</ButtonStyled>
+                <ButtonStyled onClick={handleOpenSignIn}>Already have an account?</ButtonStyled>
               )}
             </Grid>
           </Grid>
