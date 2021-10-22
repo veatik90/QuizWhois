@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
-import { sendRequest } from './utils/sendRequest';
-import { HttpMethod } from './utils/constants';
+import { createGetRequest } from './utils/createRequest';
+import { RequestResponse } from '../interfaces';
 
 /**
  * The axios hook send a http request in server and takes a response,
@@ -30,19 +30,20 @@ import { HttpMethod } from './utils/constants';
  *  }
  * }
  */
-export const useAxiosGet = () => {
-  const [onSuccess, setOnSuccess] = useState<AxiosResponse | null>(null);
-  const [onError, setOnError] = useState<AxiosResponse | undefined | null>(null);
+export const useAxiosGet = (url: string): RequestResponse => {
+  const [response, setResponse] = useState<AxiosResponse | null>(null);
+  const [error, setError] = useState<AxiosResponse | undefined | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const requestGet = (url: string) => {
-    const request = sendRequest(setOnSuccess, setOnError, setIsLoading);
-    request(HttpMethod.GET, url);
-  };
+
+  const getRequest = useCallback(() => createGetRequest(setResponse, setError, setIsLoading)(url), [url]);
+
+  useEffect(() => {
+    getRequest();
+  }, [getRequest]);
 
   return {
-    requestGet,
-    onSuccess,
-    onError,
+    response,
+    error,
     isLoading,
   };
 };

@@ -7,6 +7,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
         "plugin:prettier/recommended",
         "airbnb",
         "airbnb-typescript"
@@ -30,6 +31,7 @@
       "object-curly-newline": "off",
       "arrow-body-style":"off",
       "func-names":"off",
+      "react/jsx-no-bind": "off",
       "max-len": [
         1,
         {
