@@ -7,13 +7,6 @@ export const BoxStyled = styled(Box)`
   flex-grow: 1;
 `;
 
-// export const SecondaryText = styled.p`
-//   flex-grow: 1;
-//   font-size: 13px;
-//   margin: 0 16px 0 16px;
-//   color: gray;
-// `;
-
 export const SecondaryText = styled(Typography)`
   &.email-title {
     flex-grow: 1;
