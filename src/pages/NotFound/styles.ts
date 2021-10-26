@@ -4,7 +4,7 @@ import { styled } from '@mui/system';
 
 export const BoxStyled = styled(Box)`
   width: 100%;
-  min-height: 100vh;
+  height: calc(100vh - 102px);
   display: flex;
   align-items: center;
   justify-content: center;
