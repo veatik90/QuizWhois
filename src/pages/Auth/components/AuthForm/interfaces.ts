@@ -1,18 +1,20 @@
+import React from 'react';
+
 export interface AuthFormProps {
   /** display toggle flag */
   isSignUp?: boolean;
   /** function for sending form fields */
   onSubmit(event: React.FormEvent<HTMLFormElement>): void;
   /** server auth error */
-  authErrorMessage: undefined;
+  authErrorMessage: undefined | string;
   /** flag function for switching sign forms */
   setIsOpenedSignUp(open: boolean): void;
   /** confirmPassword field handler */
-  handleBlurFieldConfirmPassword?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  handleChangeFieldConfirmPassword?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /** email field handler */
-  handleBlurFieldEmail: (event: React.FocusEvent<HTMLInputElement>) => void;
+  handleChangeFieldEmail: (event: React.FocusEvent<HTMLInputElement>) => void;
   /** password field handler */
-  handleBlurFieldPassword: (event: React.FocusEvent<HTMLInputElement>) => void;
+  handleChangeFieldPassword: (event: React.FocusEvent<HTMLInputElement>) => void;
   /** helper text for email(check by mask and on an empty field) */
   emailHelperText: string;
   /** helper text for password(check for an empty field) */

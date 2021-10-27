@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,16 +8,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
 import { AuthFormProps } from './interfaces';
-import { ButtonStyled } from '../SignIn/styles';
-// eslint-disable-next-line
+import { ButtonStyled } from '../../SignIn/styles';
+
 export const AuthForm: FC<AuthFormProps> = ({
   isSignUp,
   onSubmit,
   authErrorMessage,
   setIsOpenedSignUp,
-  handleBlurFieldPassword,
-  handleBlurFieldEmail,
-  handleBlurFieldConfirmPassword,
+  handleChangeFieldPassword,
+  handleChangeFieldEmail,
+  handleChangeFieldConfirmPassword,
   isDisabledSubmit,
   confirmPasswordHelperText,
   passwordHelperText,
@@ -55,7 +55,7 @@ export const AuthForm: FC<AuthFormProps> = ({
         )}
         <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
-            onBlur={handleBlurFieldEmail}
+            onChange={handleChangeFieldEmail}
             error={emailError}
             helperText={emailHelperText}
             margin="normal"
@@ -69,7 +69,7 @@ export const AuthForm: FC<AuthFormProps> = ({
             type="email"
           />
           <TextField
-            onBlur={handleBlurFieldPassword}
+            onChange={handleChangeFieldPassword}
             error={passwordError}
             helperText={passwordHelperText}
             margin="normal"
@@ -83,7 +83,7 @@ export const AuthForm: FC<AuthFormProps> = ({
           />
           {isSignUp && (
             <TextField
-              onBlur={handleBlurFieldConfirmPassword}
+              onChange={handleChangeFieldConfirmPassword}
               error={confirmPasswordError}
               helperText={confirmPasswordHelperText}
               margin="normal"
