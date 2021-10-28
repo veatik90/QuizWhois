@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { AxiosResponse } from 'axios';
-import { GetLazyRequestResponse } from 'interfaces';
+import { GetLazyRequestResponse } from './interfaces';
 import { createGetRequest } from './utils/createRequest';
 
 /**

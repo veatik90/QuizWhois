@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { AxiosResponse } from 'axios';
-import { PostLazyRequestResponse } from 'interfaces';
+import { PostLazyRequestResponse } from './interfaces';
 import { createPostRequest } from './utils/createRequest';
 
 /**

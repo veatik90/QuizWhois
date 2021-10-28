@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import { createPostRequest } from './utils/createRequest';
-import { RequestResponse } from 'interfaces';
+import { RequestResponse } from './interfaces';
 
 /**
  * This hook triggered once when a page is rendering.
