@@ -14,11 +14,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import CheckIcon from '@mui/icons-material/Check';
 import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
-import { BoxStyled, SecondaryTextWithBorder, LoginTypographyStyled, LogoutStyled } from './styles';
+import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
 
 export const Header: FC = () => {
-  const [auth, setAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [userInfo, setUserInfo] = useState<IUserInfo>({
     email: 'user@mail.com',
@@ -27,10 +27,10 @@ export const Header: FC = () => {
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
+    setIsAuth(event.target.checked);
   };
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -39,8 +39,8 @@ export const Header: FC = () => {
   };
 
   const handleLogout = () => {
-    setAuth(false);
-    handleClose();
+    setIsAuth(false);
+    setAnchorEl(null);
   };
 
   const handleAdminRoleChange = () => {
@@ -54,7 +54,7 @@ export const Header: FC = () => {
         },
       });
     }
-    handleClose();
+    setAnchorEl(null);
   };
 
   const handlePlayerRoleChange = () => {
@@ -75,8 +75,8 @@ export const Header: FC = () => {
     <BoxStyled>
       <FormGroup style={{ position: 'absolute', bottom: '0', left: '0' }}>
         <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
+          control={<Switch checked={isAuth} onChange={handleChange} aria-label="login switch" />}
+          label={isAuth ? 'Logout' : 'Login'}
         />
       </FormGroup>
       <AppBar position="static">
@@ -92,14 +92,14 @@ export const Header: FC = () => {
           >
             QuizWhoIs
           </Typography>
-          {auth === true ? (
+          {isAuth ? (
             <div>
               <IconButton
                 size="large"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={handleMenu}
+                onClick={handleMenuClick}
                 color="inherit"
               >
                 <AccountCircle />
@@ -122,7 +122,7 @@ export const Header: FC = () => {
                 <LoginTypographyStyled className="login-title" mx={2}>
                   {userInfo.login}
                 </LoginTypographyStyled>
-                <SecondaryTextWithBorder className="email-title">{userInfo.email}</SecondaryTextWithBorder>
+                <SecondaryTextWithBorderStyled className="email-title">{userInfo.email}</SecondaryTextWithBorderStyled>
                 <MenuItem onClick={handleAdminRoleChange}>
                   <Typography mr={1}>Admin</Typography>
                   {userInfo.roles.isAdmin ? <CheckIcon /> : null}
