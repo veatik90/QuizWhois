@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { validationField } from '../../../../../components/validation/validationField';
 import { AuthField } from './interfaces';
+import { ValidationTypes } from '../../../../../shared/constants/validationConstants';
 
 export const useFieldEmail = (): AuthField => {
   const [value, setValue] = useState('');
@@ -11,8 +11,7 @@ export const useFieldEmail = (): AuthField => {
 
   const handleChange = (event: React.FocusEvent<HTMLInputElement>): void => {
     const { isError, errorText } = validationField(
-      ['mismatch', 'required', 'email'],
-      event.target.value,
+      [ValidationTypes.REQUIRED, ValidationTypes.EMAIL],
       event.target.value,
     );
 

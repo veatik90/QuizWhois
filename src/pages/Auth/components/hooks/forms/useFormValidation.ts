@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { validationForm } from '../../../../../components/validation/validationForm';
+import { validateForm } from '../../../../../components/validation/validateForm';
 import { FormValidation } from './interfaces';
 
 export const useFormValidation = (
@@ -11,10 +11,10 @@ export const useFormValidation = (
 
   useEffect(() => {
     let isErrors = [emailError, passwordError];
-    if (typeof confirmPasswordError !== 'undefined') {
+    if (confirmPasswordError !== undefined) {
       isErrors = [emailError, passwordError, confirmPasswordError];
     }
-    const hasErrors = validationForm(isErrors);
+    const hasErrors = validateForm(isErrors);
 
     if (hasErrors) {
       setIsDisabledSubmit(true);

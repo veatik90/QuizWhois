@@ -6,7 +6,7 @@ export interface AuthFormProps {
   /** function for sending form fields */
   onSubmit(event: React.FormEvent<HTMLFormElement>): void;
   /** server auth error */
-  authErrorMessage: undefined | string;
+  // authErrorMessage: undefined | string;
   /** flag function for switching sign forms */
   setIsOpenedSignUp(open: boolean): void;
   /** confirmPassword field handler */

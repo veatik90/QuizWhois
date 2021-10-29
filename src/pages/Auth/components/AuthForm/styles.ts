@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 
-export const ButtonStyled = styled(Button)({
+export const SubmitButtonStyled = styled(Button)({
   textTransform: 'none',
   '&:hover': {
     borderColor: '#0062cc',

@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { validationField } from '../../../../../components/validation/validationField';
 import { AuthField } from './interfaces';
+import { ValidationTypes } from '../../../../../shared/constants/validationConstants';
 
 export const useFieldPassword = (): AuthField => {
   const [value, setValue] = useState('');
@@ -10,7 +10,7 @@ export const useFieldPassword = (): AuthField => {
   const [helperText, setHelperText] = useState('');
 
   const handleChange = (event: React.FocusEvent<HTMLInputElement>): void => {
-    const { isError, errorText } = validationField(['required'], event.target.value);
+    const { isError, errorText } = validationField([ValidationTypes.REQUIRED], event.target.value);
 
     setValue(event.target.value);
     setErrorDisplay(isError);

@@ -1,7 +1,7 @@
-import { EMPTY_FIELDS } from './components/constants';
+import { EMPTY_FIELDS } from './constants';
 import { ValidationField } from '../interfaces';
 
-export const required = (fieldValue: string): ValidationField => {
+export const validatorRequired = (fieldValue: string): ValidationField => {
   let isError = false;
   let errorText = '';
 

@@ -1,6 +1,6 @@
-import { required } from './types/required';
-import { email } from './types/email';
-import { mismatch } from './types/mismatch';
+import { validatorRequired } from './validators/validatorRequired';
+import { validatorEmail } from './validators/validatorEmail';
+import { validatorMismatch } from './validators/validatorMismatch';
 import { Validation, ValidationField } from './interfaces';
 
 const prioritizer = (validations: Validation[]) => {
@@ -35,19 +35,19 @@ export const validationField = (
   value: string,
   valueComparison?: string,
 ): ValidationField => {
-  const sortedValidation = sortValidationTypes(validations);
+  const sortedValidations = sortValidationTypes(validations);
   let checkValidator = { isError: false, errorText: '' };
 
-  for (let i = 0; i < sortedValidation.length; i += 1) {
-    switch (sortedValidation[i]) {
+  for (let i = 0; i < sortedValidations.length; i += 1) {
+    switch (sortedValidations[i]) {
       case 'required':
-        checkValidator = required(value);
+        checkValidator = validatorRequired(value);
         break;
       case 'email':
-        checkValidator = email(value);
+        checkValidator = validatorEmail(value);
         break;
       case 'mismatch':
-        checkValidator = mismatch(value, valueComparison);
+        checkValidator = validatorMismatch(value, valueComparison);
         break;
       default:
         break;

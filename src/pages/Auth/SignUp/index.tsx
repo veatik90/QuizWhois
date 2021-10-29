@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { AuthForm } from '../components/AuthForm';
 import { useFieldEmail } from '../components/hooks/fields/useFieldEmail';
 import { useFieldPassword } from '../components/hooks/fields/useFieldPassword';
@@ -33,14 +32,13 @@ export const SignUp: FC<SignUpProps> = ({ setIsOpenedSignUp }) => {
     passwordErrorValidation,
     confirmPasswordErrorValidation,
   );
-  const { authErrorMessage, handleSubmit } = useFormSubmit();
+  const { handleSubmit } = useFormSubmit();
 
   return (
     <AuthForm
       isSignUp
       setIsOpenedSignUp={setIsOpenedSignUp}
       isDisabledSubmit={isDisabledSubmit}
-      authErrorMessage={authErrorMessage}
       onSubmit={handleSubmit}
       emailError={emailErrorDisplay}
       emailHelperText={emailHelperText}

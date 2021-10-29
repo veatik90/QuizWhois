@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { validationField } from '../../../../../components/validation/validationField';
 import { AuthField } from './interfaces';
+import { ValidationTypes } from '../../../../../shared/constants/validationConstants';
 
 export const useFieldConfirmPassword = (passwordValue: string): AuthField => {
   const [value, setValue] = useState('');
@@ -15,7 +15,7 @@ export const useFieldConfirmPassword = (passwordValue: string): AuthField => {
   };
 
   useEffect((): void => {
-    const validationConfirmPassword = validationField(['mismatch'], value, passwordValue);
+    const validationConfirmPassword = validationField([ValidationTypes.MISMATCH], value, passwordValue);
 
     if (firstRender.current) {
       setErrorDisplay(validationConfirmPassword.isError);

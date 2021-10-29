@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 

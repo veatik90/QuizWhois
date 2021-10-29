@@ -1,13 +1,12 @@
-import { WRONG_EMAIL } from './components/constants';
+import { WRONG_EMAIL } from './constants';
 import { ValidationField } from '../interfaces';
 
-export const email = (fieldValue: string): ValidationField => {
+export const validatorEmail = (fieldValue: string): ValidationField => {
   const emailMask = new RegExp('.+@.+\\..+');
-  const validEmail: boolean = emailMask.test(fieldValue);
   let isError = false;
   let errorText = '';
 
-  if (!validEmail) {
+  if (!emailMask.test(fieldValue)) {
     isError = true;
     errorText = WRONG_EMAIL;
   }

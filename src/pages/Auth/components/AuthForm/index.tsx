@@ -8,12 +8,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
 import { AuthFormProps } from './interfaces';
-import { ButtonStyled } from '../../SignIn/styles';
+import { SubmitButtonStyled } from './styles';
 
 export const AuthForm: FC<AuthFormProps> = ({
   isSignUp,
   onSubmit,
-  authErrorMessage,
   setIsOpenedSignUp,
   handleChangeFieldPassword,
   handleChangeFieldEmail,
@@ -96,9 +95,10 @@ export const AuthForm: FC<AuthFormProps> = ({
               autoComplete="current-password"
             />
           )}
-          <Typography variant="body2" sx={{ color: '#FF4040' }}>
-            {authErrorMessage}
-          </Typography>
+          {/** <Typography variant="body2" sx={{ color: '#FF4040' }}> */}
+          {/** TODO: display authErrorMessage when axios hook applies. */}
+          {/** {authErrorMessage} */}
+          {/** </Typography> */}
           {!isSignUp ? (
             <Button disabled={isDisabledSubmit} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
@@ -111,9 +111,9 @@ export const AuthForm: FC<AuthFormProps> = ({
           <Grid container justifyContent="flex-end">
             <Grid item>
               {!isSignUp ? (
-                <ButtonStyled onClick={handleOpenSignUp}>Don&apos;t have an account?</ButtonStyled>
+                <SubmitButtonStyled onClick={handleOpenSignUp}>Don&apos;t have an account?</SubmitButtonStyled>
               ) : (
-                <ButtonStyled onClick={handleOpenSignIn}>Already have an account?</ButtonStyled>
+                <SubmitButtonStyled onClick={handleOpenSignIn}>Already have an account?</SubmitButtonStyled>
               )}
             </Grid>
           </Grid>
