@@ -1,11 +1,10 @@
 import { Box, MenuItem, Typography } from '@mui/material';
 import styled from 'styled-components';
-
-const heightOfHeader = 64;
+import { HEADER_HEIGHT } from '../../shared/constants';
 
 export const BoxStyled = styled(Box)`
   flex-grow: 1;
-  height: ${heightOfHeader}px;
+  height: ${HEADER_HEIGHT}px;
 `;
 
 export const SecondaryTextStyled = styled(Typography)`
