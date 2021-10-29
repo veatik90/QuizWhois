@@ -26,20 +26,20 @@
         "@typescript-eslint"
     ],
     "rules": {
-      "react/react-in-jsx-scope": "off",
-      "import/prefer-default-export": "off",
-      "object-curly-newline": "off",
-      "arrow-body-style":"off",
-      "func-names":"off",
-      "react/jsx-no-bind": "off",
-      "max-len": [
-        1,
-        {
-          "ignoreStrings": true,
-          "ignoreTemplateLiterals": true,
-          "code": 120
-        }
-      ]
+        "react/react-in-jsx-scope": "off",
+        "import/prefer-default-export": "off",
+        "object-curly-newline": "off",
+        "arrow-body-style":"off",
+        "func-names":"off",
+        "react/jsx-no-bind": "off",
+        "max-len": [
+            1,
+            {
+                "ignoreStrings": true,
+                "ignoreTemplateLiterals": true,
+                "code": 120
+            }
+        ]
     },
     "ignorePatterns": ["config-overrides.js"]
 }
