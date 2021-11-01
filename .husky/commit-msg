@@ -1,0 +1,14 @@
+#!/bin/node
+
+const fs = require("fs");
+const commitMessageTypes = ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore'];
+const message = fs.readFileSync(process.argv[2]).toString();
+
+if (message.indexOf(':') !== -1){
+    const messageType = message.slice(0, message.indexOf(':'));
+    if(commitMessageTypes.includes(messageType) && message[message.indexOf(':') + 1] === ' ') process.exit(0);
+}
+
+console.error('\nError!\nCommit message should be like this:\nfeat: add feature');
+process.exit(1);
+
