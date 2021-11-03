@@ -87,7 +87,7 @@ export const Header: FC = () => {
             to="/"
             sx={{
               textDecoration: 'none',
-              color: 'black',
+              color: 'primary.contrastText',
             }}
           >
             QuizWhoIs

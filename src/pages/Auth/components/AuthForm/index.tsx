@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
 import { AuthFormProps } from './interfaces';
-import { SubmitButtonStyled } from './styles';
 
 export const AuthForm: FC<AuthFormProps> = ({
   isSignUp,
@@ -42,7 +41,7 @@ export const AuthForm: FC<AuthFormProps> = ({
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
+        <Avatar sx={{ m: 1, bgcolor: 'primary.contrastText' }} />
         {!isSignUp ? (
           <Typography component="h1" variant="h5">
             Sign in
@@ -111,9 +110,9 @@ export const AuthForm: FC<AuthFormProps> = ({
           <Grid container justifyContent="flex-end">
             <Grid item>
               {!isSignUp ? (
-                <SubmitButtonStyled onClick={handleOpenSignUp}>Don&apos;t have an account?</SubmitButtonStyled>
+                <Button onClick={handleOpenSignUp}>Don&apos;t have an account?</Button>
               ) : (
-                <SubmitButtonStyled onClick={handleOpenSignIn}>Already have an account?</SubmitButtonStyled>
+                <Button onClick={handleOpenSignIn}>Already have an account?</Button>
               )}
             </Grid>
           </Grid>
