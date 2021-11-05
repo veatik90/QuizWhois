@@ -36,8 +36,8 @@
   },
   "husky": {
     "hooks": {
-       "commit-msg": "node ./.husky/commit-msg"
-     }
+      "commit-msg": "node ./.husky/commit-msg"
+    }
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -75,11 +75,11 @@
     "@typescript-eslint/parser": "^5.0.0",
     "customize-cra": "^1.0.0",
     "eslint-plugin-react": "^7.26.1",
+    "husky": "^7.0.0",
     "react-app-rewired": "^2.1.8",
     "stylelint": "^13.13.1",
     "stylelint-config-recommended": "^5.0.0",
     "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.10.0",
-    "husky": "^7.0.0"
+    "stylelint-processor-styled-components": "^1.10.0"
   }
 }
