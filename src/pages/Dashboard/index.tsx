@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { Tabs, Tab, Box, Container } from '@mui/material';
+import { useHistory } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { GameCatalog } from '../GameCatalog';
+import { PackCreation } from '../PackCreation';
 
 interface TabPanelProps {
   // eslint-disable-next-line react/require-default-props
@@ -25,9 +28,34 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export function Dashboard() {
-  const [value, setValue] = React.useState(0);
+  const history = useHistory();
+  const { page } = useParams<{ page: string }>();
+
+  const tabNameToIndex: { [key: number]: string } = {
+    0: 'allGames',
+    1: 'archive',
+    2: 'training',
+    3: 'momentary',
+    4: 'packCreation',
+  };
+
+  const indexToTabName: { [key: string]: number } = {
+    allGames: 0,
+    archive: 1,
+    training: 2,
+    momentary: 3,
+    packCreation: 4,
+  };
+  const getTab = (index: keyof typeof tabNameToIndex): string => {
+    return tabNameToIndex[index];
+  };
+  const getIndex = (index: keyof typeof indexToTabName): number => {
+    return indexToTabName[index];
+  };
+  const [value, setValue] = React.useState(getIndex(page));
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    history.push(`/dashboard/${getTab(newValue)}`);
     console.warn(newValue);
     setValue(newValue);
   };
@@ -37,7 +65,6 @@ export function Dashboard() {
       <Container component="main" maxWidth="lg">
         <Box>
           <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="1" />
             <Tab label="Каталог игр" />
             <Tab label="Архив игр" />
             <Tab label="Тренировочная игра" />
@@ -46,15 +73,19 @@ export function Dashboard() {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          Item 1
+          <GameCatalog />
         </TabPanel>
-        {value === 1 && <GameCatalog />}
-
+        <TabPanel value={value} index={1}>
+          архив
+        </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Two
+          тренировочная
         </TabPanel>
         <TabPanel value={value} index={3}>
-          Item Three
+          моментальная
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          <PackCreation />
         </TabPanel>
       </Container>
     </Box>

@@ -4,24 +4,20 @@ import { Header } from './components/Header';
 import { NotFound } from './pages/NotFound';
 import { Auth } from './pages/Auth';
 import { Dashboard } from './pages/Dashboard';
-import { GameCatalog } from './pages/GameCatalog';
 
 const App: FC = () => {
   return (
     <Router>
       <Header />
       <Switch>
-        <Route path="/dashboard">
-          <Dashboard />
-        </Route>
         <Route exact path="/">
-          <Redirect to="/dashboard" />
+          <Redirect to="/dashboard/allGames" />
         </Route>
         <Route path="/auth">
           <Auth />
         </Route>
-        <Route path="/dashboard/games">
-          <GameCatalog />
+        <Route exact path="/dashboard/:page?">
+          <Dashboard />
         </Route>
         <Route path="*">
           <NotFound />
