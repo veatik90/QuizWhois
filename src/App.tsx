@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { NotFound } from './pages/NotFound';
 import { Auth } from './pages/Auth';
 import { Dashboard } from './pages/Dashboard';
+import { GameCatalog } from './pages/GameCatalog';
 
 const App: FC = () => {
   return (
@@ -18,6 +19,9 @@ const App: FC = () => {
         </Route>
         <Route path="/auth">
           <Auth />
+        </Route>
+        <Route path="/dashboard/games">
+          <GameCatalog />
         </Route>
         <Route path="*">
           <NotFound />
