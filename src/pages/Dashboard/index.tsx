@@ -55,7 +55,7 @@ export function Dashboard() {
   const [value, setValue] = React.useState(getIndex(page));
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    history.push(`/dashboard/${getTab(newValue)}`);
+    history.push(`/${getTab(newValue)}`);
     console.warn(newValue);
     setValue(newValue);
   };

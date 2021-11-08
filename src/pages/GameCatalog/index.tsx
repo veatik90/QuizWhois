@@ -18,7 +18,7 @@ export function GameCatalog() {
       <Grid container spacing={4}>
         {cards.map((card) => (
           <Grid item key={card} xs={12} sm={6} md={4}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'primary.contrastText' }}>
               <CardMedia component="img" image="https://source.unsplash.com/random" alt="random" />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">

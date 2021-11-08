@@ -11,12 +11,12 @@ const App: FC = () => {
       <Header />
       <Switch>
         <Route exact path="/">
-          <Redirect to="/dashboard/allGames" />
+          <Redirect to="/allGames" />
         </Route>
         <Route path="/auth">
           <Auth />
         </Route>
-        <Route exact path="/dashboard/:page?">
+        <Route exact path="/:page?">
           <Dashboard />
         </Route>
         <Route path="*">
