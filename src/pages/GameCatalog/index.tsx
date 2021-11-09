@@ -27,7 +27,9 @@ export function GameCatalog() {
                 <Typography>This is a media card. You can use this section to describe the content.</Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Зарегистрироваться</Button>
+                <Button size="small" variant="outlined">
+                  Зарегистрироваться
+                </Button>
               </CardActions>
             </Card>
           </Grid>

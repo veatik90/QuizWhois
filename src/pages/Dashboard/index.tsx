@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tabs, Tab, Box, Container } from '@mui/material';
+import { Tabs, Tab, Box, Container, MenuItem, Menu, Button } from '@mui/material';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { GameCatalog } from '../GameCatalog';
@@ -28,6 +28,14 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export function Dashboard() {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const history = useHistory();
   const { page } = useParams<{ page: string }>();
 
@@ -67,7 +75,21 @@ export function Dashboard() {
           <Tabs value={value} onChange={handleChange} centered>
             <Tab label="Каталог игр" />
             <Tab label="Архив игр" />
-            <Tab label="Тренировочная игра" />
+            <Tab
+              label={
+                // eslint-disable-next-line react/jsx-wrap-multilines
+                <div>
+                  <Button color="inherit" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
+                    Тренировочная игра
+                  </Button>
+                  <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                    <MenuItem onClick={() => history.push('/training/randomQuestion')}>Случайный вопрос</MenuItem>
+                    <MenuItem onClick={() => history.push('/training/randomPack')}>Случайный пакет</MenuItem>
+                    <MenuItem onClick={() => history.push('/training/readyPack')}>Готовый пакет</MenuItem>
+                  </Menu>
+                </div>
+              }
+            />
             <Tab label="Моментальная игра" />
             <Tab label="Создание пакета" />
           </Tabs>
