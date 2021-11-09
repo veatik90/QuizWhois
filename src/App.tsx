@@ -15,9 +15,11 @@ const App: FC = () => {
         <Route path="/auth">
           <Auth />
         </Route>
-        <Route path="*">
-          <Redirect to="/404-page" />
+        <Route path="/not-found">
           <NotFound />
+        </Route>
+        <Route path="*">
+          <Redirect to="/not-found" />
         </Route>
       </Switch>
     </Router>
