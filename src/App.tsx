@@ -6,25 +6,23 @@ import { Auth } from './pages/Auth';
 import { RandomQuestion } from './pages/TrainingQuiz/RandomQuestion';
 import { RandomPack } from './pages/TrainingQuiz/RandomPack';
 import { ReadyPack } from './pages/TrainingQuiz/ReadyPack';
-import { AppTabs } from './components/AppTabs';
-import { GameCatalog } from './pages/GameCatalog';
-import { PackCreation } from './pages/PackCreation';
+import { GameCatalogPage } from './pages/GameCatalog';
+import { PackCreationPage } from './pages/PackCreation';
 import { Routes } from './configs/routes';
 
 const App: FC = () => {
   return (
     <Router>
       <Header />
-      <AppTabs />
       <Switch>
         <Route path={Routes.AUTH}>
           <Auth />
         </Route>
         <Route path={Routes.CATALOG}>
-          <GameCatalog />
+          <GameCatalogPage />
         </Route>
         <Route path={Routes.PACK_CREATION}>
-          <PackCreation />
+          <PackCreationPage />
         </Route>
         <Route path="/training/randomQuestion">
           <RandomQuestion />
