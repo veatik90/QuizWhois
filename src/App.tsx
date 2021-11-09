@@ -3,24 +3,34 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { Header } from './components/Header';
 import { NotFound } from './pages/NotFound';
 import { Auth } from './pages/Auth';
-import { Dashboard } from './pages/Dashboard';
+import { AppTabs } from './components/AppTabs';
+import { GameCatalog } from './pages/GameCatalog';
+import { PackCreation } from './pages/PackCreation';
+import { Routes } from './configs/routes';
 
 const App: FC = () => {
   return (
     <Router>
       <Header />
+      <AppTabs />
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/allGames" />
-        </Route>
-        <Route path="/auth">
+        <Route path={Routes.AUTH}>
           <Auth />
         </Route>
-        <Route exact path="/:page?">
-          <Dashboard />
+        <Route path={Routes.CATALOG}>
+          <GameCatalog />
+        </Route>
+        <Route path={Routes.PACK_CREATION}>
+          <PackCreation />
+        </Route>
+        <Route path={Routes.NOT_FOUND}>
+          <NotFound />
+        </Route>
+        <Route exact path={Routes.ROOT}>
+          <Redirect to={Routes.CATALOG} />
         </Route>
         <Route path="*">
-          <NotFound />
+          <Redirect to={Routes.NOT_FOUND} />
         </Route>
       </Switch>
     </Router>
