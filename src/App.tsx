@@ -3,24 +3,28 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { Header } from './components/Header';
 import { NotFound } from './pages/NotFound';
 import { Auth } from './pages/Auth';
-import { Dashboard } from './pages/Dashboard';
 import { RandomQuestion } from './pages/TrainingQuiz/RandomQuestion';
 import { RandomPack } from './pages/TrainingQuiz/RandomPack';
 import { ReadyPack } from './pages/TrainingQuiz/ReadyPack';
+import { AppTabs } from './components/AppTabs';
+import { GameCatalog } from './pages/GameCatalog';
+import { PackCreation } from './pages/PackCreation';
+import { Routes } from './configs/routes';
 
 const App: FC = () => {
   return (
     <Router>
       <Header />
+      <AppTabs />
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/allGames" />
-        </Route>
-        <Route path="/auth">
+        <Route path={Routes.AUTH}>
           <Auth />
         </Route>
-        <Route exact path={['/allGames', '/archive', '/training', '/momentary', '/packCreation']}>
-          <Dashboard />
+        <Route path={Routes.CATALOG}>
+          <GameCatalog />
+        </Route>
+        <Route path={Routes.PACK_CREATION}>
+          <PackCreation />
         </Route>
         <Route path="/training/randomQuestion">
           <RandomQuestion />
@@ -31,8 +35,15 @@ const App: FC = () => {
         <Route path="/training/randomPack">
           <RandomPack />
         </Route>
-        <Route path="*">
+        <Route path={Routes.NOT_FOUND}>
           <NotFound />
+        </Route>
+        <Route exact path={Routes.ROOT}>
+          <Redirect to={Routes.CATALOG} />
+        </Route>
+
+        <Route path="*">
+          <Redirect to={Routes.NOT_FOUND} />
         </Route>
       </Switch>
     </Router>

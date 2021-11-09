@@ -6,12 +6,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { Container } from '@mui/material';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export function GameCatalog() {
   return (
-    <>
+    <Container component="main" maxWidth="lg">
       <Typography variant="h4" align="center" color="primary" gutterBottom>
         Ближайшие запланированные игры
       </Typography>
@@ -35,6 +36,6 @@ export function GameCatalog() {
           </Grid>
         ))}
       </Grid>
-    </>
+    </Container>
   );
 }
