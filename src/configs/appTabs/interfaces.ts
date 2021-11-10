@@ -1,9 +1,10 @@
 export enum AppTabs {
   CATALOGUE = 'catalog',
-  ARCHIEVE = 'archive',
+  ARCHIVE = 'archive',
   TRAINING = 'training',
   MOMENTARY = 'momentary',
   PACK_CREATION = 'pack-creation',
+  MY_CREATED_GAMES = 'my-created-games',
 }
 
 export type Tabs = {

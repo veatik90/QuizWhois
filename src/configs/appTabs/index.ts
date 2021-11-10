@@ -7,10 +7,10 @@ export const appTabsConfig: Tabs = {
     order: 0,
     url: Routes.CATALOG,
   },
-  [AppTabs.ARCHIEVE]: {
+  [AppTabs.ARCHIVE]: {
     label: 'Архив игр',
     order: 1,
-    url: Routes.ARCHIEVE,
+    url: Routes.ARCHIVE,
   },
   [AppTabs.TRAINING]: {
     label: 'Тренировочная игра',
@@ -26,5 +26,10 @@ export const appTabsConfig: Tabs = {
     label: 'Создание пакета',
     order: 4,
     url: Routes.PACK_CREATION,
+  },
+  [AppTabs.MY_CREATED_GAMES]: {
+    label: 'Мои созданные игры',
+    order: 5,
+    url: Routes.MY_CREATED_GAMES,
   },
 };

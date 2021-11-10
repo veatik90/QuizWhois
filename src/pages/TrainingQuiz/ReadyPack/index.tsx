@@ -1,6 +1,12 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import { withTabs } from '../../../hoc/withTabs';
 
 export function ReadyPack() {
-  return <Box>ReadyPack</Box>;
+  return (
+    <Container component="main" maxWidth="lg">
+      тренировочная игра с готоым пакетом
+    </Container>
+  );
 }
+
+export const ReadyPackPage = withTabs(ReadyPack);

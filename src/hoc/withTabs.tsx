@@ -1,6 +1,7 @@
 import { Tab, Tabs, MenuItem, Menu, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { ElementType, useState } from 'react';
+import { useHistory } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import { appTabsConfig } from '../configs/appTabs';
 import { Routes } from '../configs/routes';
@@ -8,6 +9,8 @@ import { Routes } from '../configs/routes';
 export function withTabs(Component: ElementType) {
   return () => {
     const { pathname } = useLocation();
+    const history = useHistory();
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,9 +39,9 @@ export function withTabs(Component: ElementType) {
                         Тренировочная игра
                       </Button>
                       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                        <MenuItem onClick={() => console.log('/training/randomQuestion')}>Случайный вопрос</MenuItem>
-                        <MenuItem onClick={() => console.log('/training/randomPack')}>Случайный пакет</MenuItem>
-                        <MenuItem onClick={() => console.log('/training/readyPack')}>Готовый пакет</MenuItem>
+                        <MenuItem onClick={() => history.push(Routes.RANDOM_QUESTION)}>Случайный вопрос</MenuItem>
+                        <MenuItem onClick={() => history.push(Routes.RANDOM_PACK)}>Случайный пакет</MenuItem>
+                        <MenuItem onClick={() => history.push(Routes.READY_PACK)}>Готовый пакет</MenuItem>
                       </Menu>
                     </div>
                   }
