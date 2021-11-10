@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { Header } from './components/Header';
 import { NotFound } from './pages/NotFound';
 import { Auth } from './pages/Auth';
+import { QuestionCreation } from './pages/QuestionCreation';
 
 const App: FC = () => {
   return (
@@ -14,6 +15,9 @@ const App: FC = () => {
         </Route>
         <Route path="/auth">
           <Auth />
+        </Route>
+        <Route path="/questionCreation">
+          <QuestionCreation />
         </Route>
         <Route path="*">
           <Redirect to="/404-page" />
