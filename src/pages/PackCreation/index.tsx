@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Prompt } from 'react-router';
+import { withTabs } from '../../hoc/withTabs';
 
 export function PackCreation() {
   return (
@@ -36,3 +37,5 @@ export function PackCreation() {
     </>
   );
 }
+
+export const PackCreationPage = withTabs(PackCreation);
