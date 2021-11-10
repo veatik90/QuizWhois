@@ -4,7 +4,7 @@ import { Header } from './components/Header';
 import { NotFound } from './pages/NotFound';
 import { Auth } from './pages/Auth';
 import { RandomQuestion } from './pages/TrainingQuiz/RandomQuestion';
-import { RandomPack } from './pages/TrainingQuiz/RandomPack';
+import { RandomPackPage } from './pages/TrainingQuiz/RandomPack';
 import { ReadyPack } from './pages/TrainingQuiz/ReadyPack';
 import { GameCatalogPage } from './pages/GameCatalog';
 import { PackCreationPage } from './pages/PackCreation';
@@ -31,7 +31,10 @@ const App: FC = () => {
           <ReadyPack />
         </Route>
         <Route path="/training/randomPack">
-          <RandomPack />
+          <RandomPackPage />
+        </Route>
+        <Route path="/training">
+          <RandomPackPage />
         </Route>
         <Route path={Routes.NOT_FOUND}>
           <NotFound />
