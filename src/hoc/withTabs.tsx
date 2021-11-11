@@ -53,6 +53,7 @@ export function withTabs(Component: ElementType) {
                         aria-expanded={isOpen ? 'true' : undefined}
                         onClick={handleMenuClick}
                         endIcon={<KeyboardArrowDownIcon />}
+                        style={{ backgroundColor: 'transparent' }}
                       >
                         Тренировочная игра
                       </Button>
