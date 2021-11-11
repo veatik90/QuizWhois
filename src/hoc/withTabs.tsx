@@ -1,5 +1,6 @@
 import { Tab, Tabs, MenuItem, Menu, Button } from '@mui/material';
 import { Box } from '@mui/system';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ElementType, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
@@ -45,10 +46,13 @@ export function withTabs(Component: ElementType) {
                     // eslint-disable-next-line react/jsx-wrap-multilines
                     <div>
                       <Button
+                        disableElevation
+                        disableRipple
+                        disableFocusRipple
                         color="inherit"
-                        size="small"
                         aria-expanded={isOpen ? 'true' : undefined}
                         onClick={handleMenuClick}
+                        endIcon={<KeyboardArrowDownIcon />}
                       >
                         Тренировочная игра
                       </Button>
