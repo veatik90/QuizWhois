@@ -1,9 +1,10 @@
 import { FC } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Header } from './components/Header';
 import { NotFound } from './pages/NotFound';
 import { Auth } from './pages/Auth';
 import { QuizCreate } from './pages/Quiz/create';
+import { QuestionCreation } from './pages/QuestionCreation';
 
 const App: FC = () => {
   return (
@@ -19,7 +20,11 @@ const App: FC = () => {
         <Route path="/auth">
           <Auth />
         </Route>
+        <Route path="/questionCreation">
+          <QuestionCreation />
+        </Route>
         <Route path="*">
+          <Redirect to="/404-page" />
           <NotFound />
         </Route>
       </Switch>
