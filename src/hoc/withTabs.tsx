@@ -12,17 +12,31 @@ export function withTabs(Component: ElementType) {
     const history = useHistory();
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const isOpen = Boolean(anchorEl);
+
+    const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+
+    const handleMenuClose = () => {
       setAnchorEl(null);
     };
+
+    const handleMenuItemClick = (event: React.MouseEvent<HTMLLIElement>) => {
+      const { url = '' } = event.currentTarget?.dataset;
+      history.push(url);
+    };
+
+    const checkTabValue = () => {
+      return [Routes.RANDOM_QUESTION, Routes.RANDOM_PACK, Routes.READY_PACK].some((path) => path === pathname)
+        ? Routes.TRAINING
+        : pathname;
+    };
+
     return (
       <>
         <Box>
-          <Tabs value={pathname} centered>
+          <Tabs value={checkTabValue()} centered>
             {Object.values(appTabsConfig).map((tab) => {
               return tab.url === Routes.TRAINING ? (
                 <Tab
@@ -33,15 +47,33 @@ export function withTabs(Component: ElementType) {
                       <Button
                         color="inherit"
                         size="small"
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={handleClick}
+                        aria-expanded={isOpen ? 'true' : undefined}
+                        onClick={handleMenuClick}
                       >
                         Тренировочная игра
                       </Button>
-                      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                        <MenuItem onClick={() => history.push(Routes.RANDOM_QUESTION)}>Случайный вопрос</MenuItem>
-                        <MenuItem onClick={() => history.push(Routes.RANDOM_PACK)}>Случайный пакет</MenuItem>
-                        <MenuItem onClick={() => history.push(Routes.READY_PACK)}>Готовый пакет</MenuItem>
+                      <Menu anchorEl={anchorEl} open={isOpen} onClose={handleMenuClose}>
+                        <MenuItem
+                          data-url={Routes.RANDOM_QUESTION}
+                          onClick={handleMenuItemClick}
+                          selected={pathname === Routes.RANDOM_QUESTION}
+                        >
+                          Случайный вопрос
+                        </MenuItem>
+                        <MenuItem
+                          data-url={Routes.RANDOM_PACK}
+                          onClick={handleMenuItemClick}
+                          selected={pathname === Routes.RANDOM_PACK}
+                        >
+                          Случайный пакет
+                        </MenuItem>
+                        <MenuItem
+                          data-url={Routes.READY_PACK}
+                          onClick={handleMenuItemClick}
+                          selected={pathname === Routes.READY_PACK}
+                        >
+                          Готовый пакет
+                        </MenuItem>
                       </Menu>
                     </div>
                   }
