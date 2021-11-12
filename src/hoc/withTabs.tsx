@@ -1,6 +1,7 @@
 import { Tab, Tabs, MenuItem, Button } from '@mui/material';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import { Box } from '@mui/system';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { styled } from '@mui/material/styles';
 import { ElementType, useState } from 'react';
@@ -32,6 +33,7 @@ export function withTabs(Component: ElementType) {
   return () => {
     const { pathname } = useLocation();
     const history = useHistory();
+    const matches = useMediaQuery('(min-width:1200px)');
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isOpen = Boolean(anchorEl);
@@ -58,58 +60,113 @@ export function withTabs(Component: ElementType) {
     return (
       <>
         <Box>
-          <Tabs value={checkTabValue()} centered>
-            {Object.values(appTabsConfig).map((tab) => {
-              return tab.url === Routes.TRAINING ? (
-                <Tab
-                  key={tab.order}
-                  label={
-                    // eslint-disable-next-line react/jsx-wrap-multilines
-                    <div>
-                      <Button
-                        disableElevation
-                        disableRipple
-                        disableFocusRipple
-                        color="inherit"
-                        aria-expanded={isOpen ? 'true' : undefined}
-                        onClick={handleMenuClick}
-                        endIcon={<KeyboardArrowDownIcon />}
-                        style={{ backgroundColor: 'transparent' }}
-                      >
-                        Тренировочная игра
-                      </Button>
-                      <StyledMenu anchorEl={anchorEl} open={isOpen} onClose={handleMenuClose}>
-                        <MenuItem
-                          data-url={Routes.RANDOM_QUESTION}
-                          onClick={handleMenuItemClick}
-                          selected={pathname === Routes.RANDOM_QUESTION}
+          {matches ? (
+            <Tabs value={checkTabValue()} scrollButtons allowScrollButtonsMobile centered>
+              {Object.values(appTabsConfig).map((tab) => {
+                return tab.url === Routes.TRAINING ? (
+                  <Tab
+                    key={tab.order}
+                    label={
+                      // eslint-disable-next-line react/jsx-wrap-multilines
+                      <div>
+                        <Button
+                          disableElevation
+                          disableRipple
+                          disableFocusRipple
+                          color="inherit"
+                          aria-expanded={isOpen ? 'true' : undefined}
+                          onClick={handleMenuClick}
+                          endIcon={<KeyboardArrowDownIcon />}
+                          style={{ backgroundColor: 'transparent' }}
                         >
-                          Случайный вопрос
-                        </MenuItem>
-                        <MenuItem
-                          data-url={Routes.RANDOM_PACK}
-                          onClick={handleMenuItemClick}
-                          selected={pathname === Routes.RANDOM_PACK}
+                          Тренировочная игра
+                        </Button>
+                        <StyledMenu anchorEl={anchorEl} open={isOpen} onClose={handleMenuClose}>
+                          <MenuItem
+                            data-url={Routes.RANDOM_QUESTION}
+                            onClick={handleMenuItemClick}
+                            selected={pathname === Routes.RANDOM_QUESTION}
+                          >
+                            Случайный вопрос
+                          </MenuItem>
+                          <MenuItem
+                            data-url={Routes.RANDOM_PACK}
+                            onClick={handleMenuItemClick}
+                            selected={pathname === Routes.RANDOM_PACK}
+                          >
+                            Случайный пакет
+                          </MenuItem>
+                          <MenuItem
+                            data-url={Routes.READY_PACK}
+                            onClick={handleMenuItemClick}
+                            selected={pathname === Routes.READY_PACK}
+                          >
+                            Готовый пакет
+                          </MenuItem>
+                        </StyledMenu>
+                      </div>
+                    }
+                    value={tab.url}
+                  />
+                ) : (
+                  <Tab key={tab.order} label={tab.label} value={tab.url} component={Link} to={tab.url} />
+                );
+              })}
+            </Tabs>
+          ) : (
+            <Tabs value={checkTabValue()} variant="scrollable" scrollButtons allowScrollButtonsMobile centered>
+              {Object.values(appTabsConfig).map((tab) => {
+                return tab.url === Routes.TRAINING ? (
+                  <Tab
+                    key={tab.order}
+                    label={
+                      // eslint-disable-next-line react/jsx-wrap-multilines
+                      <div>
+                        <Button
+                          disableElevation
+                          disableRipple
+                          disableFocusRipple
+                          color="inherit"
+                          aria-expanded={isOpen ? 'true' : undefined}
+                          onClick={handleMenuClick}
+                          endIcon={<KeyboardArrowDownIcon />}
+                          style={{ backgroundColor: 'transparent' }}
                         >
-                          Случайный пакет
-                        </MenuItem>
-                        <MenuItem
-                          data-url={Routes.READY_PACK}
-                          onClick={handleMenuItemClick}
-                          selected={pathname === Routes.READY_PACK}
-                        >
-                          Готовый пакет
-                        </MenuItem>
-                      </StyledMenu>
-                    </div>
-                  }
-                  value={tab.url}
-                />
-              ) : (
-                <Tab key={tab.order} label={tab.label} value={tab.url} component={Link} to={tab.url} />
-              );
-            })}
-          </Tabs>
+                          Тренировочная игра
+                        </Button>
+                        <StyledMenu anchorEl={anchorEl} open={isOpen} onClose={handleMenuClose}>
+                          <MenuItem
+                            data-url={Routes.RANDOM_QUESTION}
+                            onClick={handleMenuItemClick}
+                            selected={pathname === Routes.RANDOM_QUESTION}
+                          >
+                            Случайный вопрос
+                          </MenuItem>
+                          <MenuItem
+                            data-url={Routes.RANDOM_PACK}
+                            onClick={handleMenuItemClick}
+                            selected={pathname === Routes.RANDOM_PACK}
+                          >
+                            Случайный пакет
+                          </MenuItem>
+                          <MenuItem
+                            data-url={Routes.READY_PACK}
+                            onClick={handleMenuItemClick}
+                            selected={pathname === Routes.READY_PACK}
+                          >
+                            Готовый пакет
+                          </MenuItem>
+                        </StyledMenu>
+                      </div>
+                    }
+                    value={tab.url}
+                  />
+                ) : (
+                  <Tab key={tab.order} label={tab.label} value={tab.url} component={Link} to={tab.url} />
+                );
+              })}
+            </Tabs>
+          )}
         </Box>
         <Component />
       </>
