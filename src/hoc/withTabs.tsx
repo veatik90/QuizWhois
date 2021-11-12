@@ -1,6 +1,8 @@
-import { Tab, Tabs, MenuItem, Menu, Button } from '@mui/material';
+import { Tab, Tabs, MenuItem, Button } from '@mui/material';
+import Menu, { MenuProps } from '@mui/material/Menu';
 import { Box } from '@mui/system';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { styled } from '@mui/material/styles';
 import { ElementType, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
@@ -8,6 +10,25 @@ import { appTabsConfig } from '../configs/appTabs';
 import { Routes } from '../configs/routes';
 
 export function withTabs(Component: ElementType) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const StyledMenu = styled((props: MenuProps) => (
+    <Menu
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+    />
+  ))(() => ({
+    '& .MuiPaper-root': {
+      minWidth: 215,
+    },
+  }));
   return () => {
     const { pathname } = useLocation();
     const history = useHistory();
@@ -57,7 +78,7 @@ export function withTabs(Component: ElementType) {
                       >
                         Тренировочная игра
                       </Button>
-                      <Menu anchorEl={anchorEl} open={isOpen} onClose={handleMenuClose}>
+                      <StyledMenu anchorEl={anchorEl} open={isOpen} onClose={handleMenuClose}>
                         <MenuItem
                           data-url={Routes.RANDOM_QUESTION}
                           onClick={handleMenuItemClick}
@@ -79,7 +100,7 @@ export function withTabs(Component: ElementType) {
                         >
                           Готовый пакет
                         </MenuItem>
-                      </Menu>
+                      </StyledMenu>
                     </div>
                   }
                   value={tab.url}
