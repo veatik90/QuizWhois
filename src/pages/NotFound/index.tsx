@@ -3,13 +3,14 @@ import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { BoxStyled, StackStyled } from './styles';
 import NotFoundImage from './assets/NotFoundImage.png';
+import { Routes } from '../../configs/routes';
 
 export const NotFound: FC = () => (
   <BoxStyled>
     <StackStyled spacing={2}>
       <img src={NotFoundImage} alt="telescope" />
       <Typography>404 | Page not found</Typography>
-      <Button component={NavLink} to="/" variant="outlined" color="primary" size="large">
+      <Button component={NavLink} to={Routes.ROOT} variant="outlined" color="primary" size="large">
         home
       </Button>
     </StackStyled>

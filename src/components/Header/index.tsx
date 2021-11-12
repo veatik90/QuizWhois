@@ -12,6 +12,7 @@ import {
 import React, { FC, useState } from 'react';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CheckIcon from '@mui/icons-material/Check';
+import EmailIcon from '@mui/icons-material/Email';
 import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
@@ -94,6 +95,11 @@ export const Header: FC = () => {
           </Typography>
           {isAuth ? (
             <div>
+              <IconButton size="large" color="inherit">
+                <EmailIcon />
+                &nbsp;
+                <Typography variant="body2">Обратная связь </Typography>
+              </IconButton>
               <IconButton
                 size="large"
                 aria-label="account of current user"
