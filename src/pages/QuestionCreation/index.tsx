@@ -2,7 +2,13 @@
 import { Button, Grid, Stack, TextField } from '@mui/material';
 import { FC, useState } from 'react';
 import { ISynonym, IQuestion } from './interfaces';
-import { BoxWithBorderStyled, GridStyled, QuestionSpanStyled, SavePackButtonStyled } from './styles';
+import {
+  BoxWithBorderStyled,
+  GridStyled,
+  QuestionSpanStyled,
+  QuestionsStackStyled,
+  SavePackButtonStyled,
+} from './styles';
 // import { AnswerFieldStyled, AnswerStyled } from './styles';
 
 export const QuestionCreation: FC = () => {
@@ -117,13 +123,13 @@ export const QuestionCreation: FC = () => {
       </Grid>
       <Grid item xs={4} ml={10}>
         <BoxWithBorderStyled className="QuestionsBox">
-          <Stack position="static">
+          <QuestionsStackStyled position="static">
             {questions.map((elem, index) => (
               <QuestionSpanStyled key={elem.id} onClick={() => handleQuestionQlick(elem.id)}>
                 <p className="questionP">{`${index + 1}) ${elem.question}`}</p>
               </QuestionSpanStyled>
             ))}
-          </Stack>
+          </QuestionsStackStyled>
           <SavePackButtonStyled variant="contained" fullWidth onClick={handleSavePack}>
             save pack
           </SavePackButtonStyled>
