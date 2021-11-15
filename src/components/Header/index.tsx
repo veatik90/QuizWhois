@@ -25,14 +25,14 @@ import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, Logout
 import { IUserInfo } from './interfaces';
 
 export const Header: FC = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleFeedbackOpen = () => {
+    setIsOpen(true);
   };
 
-  const handleCloseFeedback = () => {
-    setOpen(false);
+  const handleFeedbackClose = () => {
+    setIsOpen(false);
   };
   const [isAuth, setIsAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -110,21 +110,21 @@ export const Header: FC = () => {
           </Typography>
           {isAuth ? (
             <div>
-              <IconButton size="large" color="inherit" onClick={handleClickOpen}>
+              <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
                 <EmailIcon />
                 &nbsp;
                 <Typography variant="body2">Обратная связь </Typography>
               </IconButton>
 
-              <Dialog fullWidth maxWidth="sm" open={open} onClose={handleCloseFeedback}>
+              <Dialog fullWidth maxWidth="sm" open={isOpen} onClose={handleFeedbackClose}>
                 <DialogTitle>Привет!</DialogTitle>
                 <DialogContent>
                   <DialogContentText>Мы с радостью ответим на любые ваши вопросы!</DialogContentText>
-                  <TextField multiline autoFocus margin="dense" id="name" type="email" fullWidth rows={4} />
+                  <TextField multiline autoFocus margin="dense" id="dialog" fullWidth rows={4} />
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleCloseFeedback}>Отмена</Button>
-                  <Button onClick={handleCloseFeedback}>Отправить</Button>
+                  <Button onClick={handleFeedbackClose}>Отмена</Button>
+                  <Button onClick={handleFeedbackClose}>Отправить</Button>
                 </DialogActions>
               </Dialog>
               <IconButton
