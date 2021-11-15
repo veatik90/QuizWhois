@@ -40,14 +40,7 @@ export function withTabs(Component: ElementType) {
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isOpen = Boolean(anchorEl);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [value, setValue] = useState('');
-    /*   const handleSelect = (event: SelectChangeEvent) => {
-      setValue(event.target.value);
-    }; */
-    /*   const handleSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setValue(event.currentTarget);
-    }; */
+
     const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
     };
@@ -181,9 +174,9 @@ export function withTabs(Component: ElementType) {
           </Box>
         ) : (
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 1 }}>
-            <FormControl variant="standard" size="small" sx={{ m: 1, width: '80%' }}>
+            <FormControl variant="standard" size="small" sx={{ m: 1, width: '70%' }}>
               <InputLabel id="label" color="primary" />
-              <Select displayEmpty value={pathname} labelId="label" id="select">
+              <Select value={pathname} labelId="label" id="select">
                 <MenuItem dense value={Routes.CATALOG} data-url={Routes.CATALOG} onClick={handleMenuItemClick}>
                   Каталог игр
                 </MenuItem>
