@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Stack } from '@mui/material';
 import { HEADER_HEIGHT } from '../../shared/constants';
 import { theme } from '../../theme';
 
@@ -36,16 +36,17 @@ export const BoxWithBorderStyled = styled(Box)`
     border-radius: 3px;
     height: 70vh;
     width: 100%;
-    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
   }
 `;
 
 export const SavePackButtonStyled = styled(Button)`
-  position: absolute;
-  bottom: 0px;
+  display: flex;
+  align-self: flex-end;
   height: 70px;
   align-items: center;
-  z-index: 1;
+  margin: 0 16px;
 `;
 
 export const QuestionSpanStyled = styled.span`
@@ -62,4 +63,10 @@ export const QuestionSpanStyled = styled.span`
     background-color: ${theme.palette.primary.main};
     color: white;
   }
+`;
+
+export const QuestionsStackStyled = styled(Stack)`
+  height: 100%;
+  padding: 14px 16px;
+  overflow-y: auto;
 `;
