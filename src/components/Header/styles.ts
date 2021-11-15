@@ -12,7 +12,6 @@ export const SecondaryTextStyled = styled(Typography)`
     flex-grow: 1;
     font-size: 13px;
     padding: 0 16px 8px 16px;
-    color: gray;
   }
 `;
 
