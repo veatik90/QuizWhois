@@ -12,28 +12,13 @@ import {
 import React, { FC, useState } from 'react';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CheckIcon from '@mui/icons-material/Check';
-import EmailIcon from '@mui/icons-material/Email';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
+import { Feedback } from '../Feedback';
 
 export const Header: FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleFeedbackOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleFeedbackClose = () => {
-    setIsOpen(false);
-  };
   const [isAuth, setIsAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [userInfo, setUserInfo] = useState<IUserInfo>({
@@ -110,23 +95,7 @@ export const Header: FC = () => {
           </Typography>
           {isAuth ? (
             <div>
-              <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
-                <EmailIcon />
-                &nbsp;
-                <Typography variant="body2">Обратная связь </Typography>
-              </IconButton>
-
-              <Dialog fullWidth maxWidth="sm" open={isOpen} onClose={handleFeedbackClose}>
-                <DialogTitle>Привет!</DialogTitle>
-                <DialogContent>
-                  <DialogContentText>Мы с радостью ответим на любые ваши вопросы!</DialogContentText>
-                  <TextField multiline autoFocus margin="dense" id="dialog" fullWidth rows={4} />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleFeedbackClose}>Отмена</Button>
-                  <Button onClick={handleFeedbackClose}>Отправить</Button>
-                </DialogActions>
-              </Dialog>
+              <Feedback />
               <IconButton
                 size="large"
                 aria-label="account of current user"
