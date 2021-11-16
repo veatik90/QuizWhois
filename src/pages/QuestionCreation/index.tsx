@@ -17,6 +17,7 @@ export const QuestionCreation: FC = () => {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [answerSynonyms, setAnswerSynonyms] = useState<ISynonym[]>([{ id: 0, synonym: '' }]);
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleChangeQuestion = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(event.target.value);
@@ -64,6 +65,7 @@ export const QuestionCreation: FC = () => {
     setAnswer('');
     setQuestion('');
     setId(tmpQuestions.length);
+    setIsEdit(false);
   };
 
   const handleQuestionDelete = (elemId: number) => {
@@ -74,6 +76,7 @@ export const QuestionCreation: FC = () => {
     setAnswer('');
     setQuestion('');
     setId(elemId);
+    setIsEdit(false);
   };
 
   const handleQuestionQlick = (elemId: number) => {
@@ -83,6 +86,7 @@ export const QuestionCreation: FC = () => {
     setQuestion(tmpQuestion.question);
     setAnswer(tmpQuestion.answer);
     setAnswerSynonyms(tmpQuestion.answerSynonyms);
+    setIsEdit(true);
   };
 
   const handleSavePack = () => {
@@ -93,13 +97,8 @@ export const QuestionCreation: FC = () => {
     <GridStyled className="QuestionCreationPageBlock" container spacing={2}>
       <Grid item xs={4}>
         <Stack spacing={2}>
-          <TextField label="Question" value={question} multiline rows={4} onChange={handleChangeQuestion} />
-          {/* <AnswerFieldStyled>
-            <AnswerStyled>
-              <p>answer</p>
-            </AnswerStyled>
-          </AnswerFieldStyled> */}
-          <TextField label="Answer" value={answer} onChange={handleChangeAnswer} />
+          <TextField label="Введите вопрос" value={question} multiline rows={4} onChange={handleChangeQuestion} />
+          <TextField label="Введите ответ(ы)" value={answer} onChange={handleChangeAnswer} />
           {answerSynonyms.map((elem) => (
             <TextField
               key={elem.id}
@@ -111,12 +110,14 @@ export const QuestionCreation: FC = () => {
               onKeyDown={(e) => handleEnterDown(elem.id, e)}
             />
           ))}
-          <Stack direction="row" justifyContent="space-between">
-            <Button variant="outlined" onClick={() => handleQuestionDelete(id)}>
-              Delete question
-            </Button>
+          <Stack direction="row" justifyContent={isEdit ? 'space-between' : 'flex-end'}>
+            {isEdit ? (
+              <Button variant="outlined" onClick={() => handleQuestionDelete(id)}>
+                Удалить вопрос
+              </Button>
+            ) : null}
             <Button variant="contained" onClick={() => handleQuestionSave(id)}>
-              Save question
+              Сохранить вопрос
             </Button>
           </Stack>
         </Stack>
@@ -131,7 +132,7 @@ export const QuestionCreation: FC = () => {
             ))}
           </QuestionsStackStyled>
           <SavePackButtonStyled variant="contained" fullWidth onClick={handleSavePack}>
-            save pack
+            Сохранить пакет
           </SavePackButtonStyled>
         </BoxWithBorderStyled>
       </Grid>

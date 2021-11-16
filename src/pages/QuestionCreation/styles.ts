@@ -23,7 +23,7 @@ export const GridStyled = styled(Grid)`
   &.QuestionCreationPageBlock {
     height: calc(100vh - ${HEADER_HEIGHT}px);
     justify-content: center;
-    padding-top: 50px;
+    padding-top: 8.5vh;
     position: relative;
     margin-top: 0px;
   }
@@ -61,7 +61,7 @@ export const QuestionSpanStyled = styled.span`
   &:hover {
     cursor: pointer;
     background-color: ${theme.palette.primary.main};
-    color: white;
+    color: ${theme.palette.primary.contrastText};
   }
 `;
 
