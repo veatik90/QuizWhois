@@ -9,8 +9,10 @@ import { useHistory } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import { appTabsConfig } from '../../configs/appTabs';
 import { Routes } from '../../configs/routes';
+import { theme } from '../../theme';
 
 export const MenuTab: FC = () => {
+  const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -32,7 +34,6 @@ export const MenuTab: FC = () => {
   }));
   const { pathname } = useLocation();
   const history = useHistory();
-  const matches = useMediaQuery('(min-width:1200px)');
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isOpen = Boolean(anchorEl);
@@ -58,8 +59,8 @@ export const MenuTab: FC = () => {
 
   return (
     <Box>
-      {matches ? (
-        <Tabs value={checkTabValue()} scrollButtons allowScrollButtonsMobile centered>
+      {!isTablet ? (
+        <Tabs value={checkTabValue()} centered>
           {Object.values(appTabsConfig).map((tab) => {
             return tab.url === Routes.TRAINING ? (
               <Tab
