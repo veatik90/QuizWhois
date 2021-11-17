@@ -1,38 +1,21 @@
 import { Tab, Tabs, MenuItem, Button } from '@mui/material';
-import Menu, { MenuProps } from '@mui/material/Menu';
 import { Box } from '@mui/system';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useTheme, styled } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { FC, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import { appTabsConfig } from '../../configs/appTabs';
 import { Routes } from '../../configs/routes';
+import { MenuStyled } from './styles';
 
 export const MenuTab: FC = () => {
   const theme = useTheme();
 
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const StyledMenu = styled((props: MenuProps) => (
-    <Menu
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    />
-  ))(() => ({
-    '& .MuiPaper-root': {
-      minWidth: 215,
-    },
-  }));
+
   const { pathname } = useLocation();
   const history = useHistory();
 
@@ -79,7 +62,19 @@ export const MenuTab: FC = () => {
                     >
                       Тренировочная игра
                     </Button>
-                    <StyledMenu anchorEl={anchorEl} open={isOpen} onClose={handleMenuClose}>
+                    <MenuStyled
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                      anchorEl={anchorEl}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
+                      open={isOpen}
+                      onClose={handleMenuClose}
+                    >
                       <MenuItem
                         data-url={Routes.RANDOM_QUESTION}
                         onClick={handleMenuItemClick}
@@ -101,7 +96,7 @@ export const MenuTab: FC = () => {
                       >
                         Готовый пакет
                       </MenuItem>
-                    </StyledMenu>
+                    </MenuStyled>
                   </div>
                 }
                 value={tab.url}
@@ -130,7 +125,19 @@ export const MenuTab: FC = () => {
                     >
                       Тренировочная игра
                     </Button>
-                    <StyledMenu anchorEl={anchorEl} open={isOpen} onClose={handleMenuClose}>
+                    <MenuStyled
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                      anchorEl={anchorEl}
+                      open={isOpen}
+                      onClose={handleMenuClose}
+                    >
                       <MenuItem
                         data-url={Routes.RANDOM_QUESTION}
                         onClick={handleMenuItemClick}
@@ -152,7 +159,7 @@ export const MenuTab: FC = () => {
                       >
                         Готовый пакет
                       </MenuItem>
-                    </StyledMenu>
+                    </MenuStyled>
                   </div>
                 }
                 value={tab.url}
