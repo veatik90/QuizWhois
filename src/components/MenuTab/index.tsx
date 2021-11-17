@@ -3,15 +3,16 @@ import Menu, { MenuProps } from '@mui/material/Menu';
 import { Box } from '@mui/system';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { styled } from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 import { FC, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import { appTabsConfig } from '../../configs/appTabs';
 import { Routes } from '../../configs/routes';
-import { theme } from '../../theme';
 
 export const MenuTab: FC = () => {
+  const theme = useTheme();
+
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const StyledMenu = styled((props: MenuProps) => (
