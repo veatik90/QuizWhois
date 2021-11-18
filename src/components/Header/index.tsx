@@ -21,6 +21,7 @@ import { IUserInfo } from './interfaces';
 import { Feedback } from '../Feedback';
 import { PACKS } from '../../pages/Notifications/constants';
 import { Pack } from '../../pages/Notifications/interfaces';
+import { Routes } from '../../configs/routes';
 
 export const Header: FC = () => {
   const [isAuth, setIsAuth] = useState(true);
@@ -104,7 +105,7 @@ export const Header: FC = () => {
               <Feedback />
               <IconButton
                 component={NavLink}
-                to="/notifications"
+                to={Routes.NOTIFICATIONS}
                 size="large"
                 aria-label="notifications"
                 color="inherit"
