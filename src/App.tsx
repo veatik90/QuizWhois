@@ -12,6 +12,7 @@ import { Routes } from './configs/routes';
 import { CreatedGamesPage } from './pages/CreatedGames';
 import { InstantGamePage } from './pages/InstantGame';
 import { GamesArchivePage } from './pages/GamesArchive';
+import { Notifications } from './pages/Notifications';
 
 const App: FC = () => {
   return (
@@ -44,6 +45,9 @@ const App: FC = () => {
         </Route>
         <Route path={Routes.ARCHIVE}>
           <GamesArchivePage />
+        </Route>
+        <Route path={Routes.NOTIFICATIONS}>
+          <Notifications />
         </Route>
         <Route path={Routes.NOT_FOUND}>
           <NotFound />

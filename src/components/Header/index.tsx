@@ -8,15 +8,19 @@ import {
   Menu,
   MenuItem,
   Button,
+  Badge,
 } from '@mui/material';
 import React, { FC, useState } from 'react';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import CheckIcon from '@mui/icons-material/Check';
 import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
 import { Feedback } from '../Feedback';
+import { PACKS } from '../../pages/Notifications/constants';
+import { Pack } from '../../pages/Notifications/interfaces';
 
 export const Header: FC = () => {
   const [isAuth, setIsAuth] = useState(true);
@@ -26,7 +30,9 @@ export const Header: FC = () => {
     login: 'user',
     roles: { isAdmin: true, isPlayer: false },
   });
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [packs, setPacks] = useState<Pack[]>(PACKS);
+  const filteredPacks = packs.filter((p) => p.isDraft === true);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsAuth(event.target.checked);
   };
@@ -96,6 +102,17 @@ export const Header: FC = () => {
           {isAuth ? (
             <div>
               <Feedback />
+              <IconButton
+                component={NavLink}
+                to="/notifications"
+                size="large"
+                aria-label="notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={filteredPacks.length} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
               <IconButton
                 size="large"
                 aria-label="account of current user"
