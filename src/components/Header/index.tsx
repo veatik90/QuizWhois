@@ -16,6 +16,7 @@ import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
+import { Feedback } from '../Feedback';
 
 export const Header: FC = () => {
   const [isAuth, setIsAuth] = useState(true);
@@ -94,6 +95,7 @@ export const Header: FC = () => {
           </Typography>
           {isAuth ? (
             <div>
+              <Feedback />
               <IconButton
                 size="large"
                 aria-label="account of current user"
