@@ -11,7 +11,10 @@ export const Notifications: FC = () => {
   console.log(setPacks);
   return (
     <Container component="main" maxWidth="md">
-      <Stack mt={3} direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
+      <Typography variant="h4" align="center" color="primary" gutterBottom sx={{ marginTop: 3 }}>
+        Уведомления
+      </Typography>
+      <Stack mt={2} direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
         {filteredPacks ? (
           filteredPacks.map((p) => (
             <Paper style={{ textDecoration: 'none' }} component={NavLink} to={Routes.MY_CREATED_GAMES} elevation={4}>
