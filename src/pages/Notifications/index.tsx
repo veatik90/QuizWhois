@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { Stack, Container, Alert, Typography, Paper } from '@mui/material';
 import { Pack } from './interfaces';
 import { PACKS } from './constants';
 import { Routes } from '../../configs/routes';
+import { NavLinkStyled } from './styles';
 
 export const Notifications: FC = () => {
   const [packs, setPacks] = useState<Pack[]>(PACKS);
@@ -17,15 +17,17 @@ export const Notifications: FC = () => {
       <Stack mt={2} direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
         {filteredPacks ? (
           filteredPacks.map((p) => (
-            <Paper style={{ textDecoration: 'none' }} component={NavLink} to={Routes.MY_CREATED_GAMES} elevation={4}>
-              <Alert severity="info">
-                <Typography>
-                  &nbsp;&nbsp; Не завершено создание пакета&nbsp;&quot;
-                  {p.name}
-                  &quot;
-                </Typography>
-              </Alert>
-            </Paper>
+            <NavLinkStyled to={Routes.MY_CREATED_GAMES}>
+              <Paper elevation={4}>
+                <Alert severity="info">
+                  <Typography>
+                    &nbsp;&nbsp; Не завершено создание пакета&nbsp;&quot;
+                    {p.name}
+                    &quot;
+                  </Typography>
+                </Alert>
+              </Paper>
+            </NavLinkStyled>
           ))
         ) : (
           <>Список уведомлений пуст</>
