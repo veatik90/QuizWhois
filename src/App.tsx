@@ -12,7 +12,7 @@ import { Routes } from './configs/routes';
 import { CreatedGamesPage } from './pages/CreatedGames';
 import { InstantGamePage } from './pages/InstantGame';
 import { GamesArchivePage } from './pages/GamesArchive';
-import { QuestionCreation } from './pages/QuestionCreation';
+import { QuestionCreationPage } from './pages/QuestionCreation';
 
 const App: FC = () => {
   return (
@@ -29,7 +29,7 @@ const App: FC = () => {
           <PackCreationPage />
         </Route>
         <Route path={Routes.QUESTION_CREATION}>
-          <QuestionCreation />
+          <QuestionCreationPage />
         </Route>
         <Route path={Routes.RANDOM_QUESTION}>
           <RandomQuestionPage />
