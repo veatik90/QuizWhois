@@ -1,10 +1,8 @@
-import { ChangeEvent } from 'react';
+import React from 'react';
 
 export interface FormValidation {
   /** disabled flag of submit form */
   isDisabledSubmit: boolean;
-  /** Setup flag of submit form */
-  resetValidation(): void;
 }
 
 export interface FieldName {
@@ -17,5 +15,9 @@ export interface FieldName {
   /** error message */
   helperText: string;
   /** handler onChange action */
-  handleChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void;
+  handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void;
+  /** set input value as empty for validation */
+  validationSetEmptyValue(): void;
+  /** set input value for validation */
+  validationSetValue(currentValue: string): void;
 }

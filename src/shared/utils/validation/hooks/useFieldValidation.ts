@@ -18,11 +18,23 @@ export const useFieldValidation = (validations: Validation[]): FieldName => {
     setHelperText(errorText);
   };
 
+  const validationSetEmptyValue = (): void => {
+    const { isError } = validationField(validations, '');
+    setErrorValidation(isError);
+  };
+
+  const validationSetValue = (currentValue: string): void => {
+    const { isError } = validationField(validations, currentValue);
+    setErrorValidation(isError);
+  };
+
   return {
     value,
     errorDisplay,
     errorValidation,
     helperText,
     handleChange,
+    validationSetEmptyValue,
+    validationSetValue,
   };
 };

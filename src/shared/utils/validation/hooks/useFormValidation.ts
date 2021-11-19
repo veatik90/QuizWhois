@@ -13,12 +13,7 @@ export const useFormValidation = (validations: boolean[]): FormValidation => {
     }
   }, [validations]);
 
-  const handleResetValidation = () => {
-    setIsDisabledSubmit(true);
-  };
-
   return {
     isDisabledSubmit,
-    resetValidation: handleResetValidation,
   };
 };

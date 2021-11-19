@@ -32,14 +32,18 @@ const QuestionCreation: FC = () => {
     errorValidation: answersErrorValidation,
     helperText: answersHelperText,
     handleChange: answersHandleChange,
+    validationSetEmptyValue: answersValidationSetEmptyValue,
+    validationSetValue: answersValidationSetValue,
   } = useFieldValidation([ValidationTypes.REQUIRED]);
   const {
     errorDisplay: questionErrorDisplay,
     errorValidation: questionErrorValidation,
     helperText: questionHelperText,
     handleChange: questionHandleChange,
+    validationSetEmptyValue: questionValidationSetEmptyValue,
+    validationSetValue: questionValidationSetValue,
   } = useFieldValidation([ValidationTypes.REQUIRED]);
-  const { isDisabledSubmit, resetValidation } = useFormValidation([answersErrorValidation, questionErrorValidation]);
+  const { isDisabledSubmit } = useFormValidation([answersErrorValidation, questionErrorValidation]);
 
   const handleChangeQuestion = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setQuestion(event.target.value);
@@ -49,27 +53,27 @@ const QuestionCreation: FC = () => {
     setAnswers(value);
   };
 
-  const handleQuestionSave = (elemId: number) => {
-    let tmpQuestions: IQuestion[] = [];
-    if (questions) tmpQuestions = [...questions];
-    if (question !== '' && answers !== []) {
-      if (questions.filter((elem) => elem.id === elemId).length > 0) {
-        tmpQuestions.map((elem, index) => {
-          if (elem.id === elemId) {
-            tmpQuestions[index] = { id, question, answers };
-          }
-          return elem;
-        });
-      } else tmpQuestions.push({ id: elemId, question, answers });
+  const handleQuestionSave = () => {
+    const isNotNewQuestion = questions.filter((elem) => elem.id === id).length === 1;
+    if (isNotNewQuestion) {
+      for (let i = 0; i < questions.length; i += 1) {
+        if (questions[i].id === id) {
+          questions[i] = { id, question, answers };
+          break;
+        }
+      }
+    } else {
+      questions.push({ id, question, answers });
     }
-    console.log(tmpQuestions);
-    setQuestions(tmpQuestions);
+
+    setQuestions(questions);
     setAnswers([]);
     setQuestion('');
-    setId(tmpQuestions.length);
+    setId(questions.length);
     setIsEdit(false);
 
-    resetValidation();
+    answersValidationSetEmptyValue();
+    questionValidationSetEmptyValue();
   };
 
   const handleQuestionDelete = (elemId: number) => {
@@ -89,13 +93,16 @@ const QuestionCreation: FC = () => {
     setQuestion(tmpQuestion.question);
     setAnswers(tmpQuestion.answers);
     setIsEdit(true);
+
+    questionValidationSetValue(tmpQuestion.question);
+    answersValidationSetValue(tmpQuestion.answers[0] ? tmpQuestion.answers[0] : '');
   };
 
   const handleSavePack = () => {
     console.log('save pack');
   };
 
-  const answerHandleBlur = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleAnswerBlur = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (event.target.value) {
       answers.push(event.target.value);
       setAnswers(answers);
@@ -103,7 +110,7 @@ const QuestionCreation: FC = () => {
     }
   };
 
-  const answerHandleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     event.preventDefault();
     setAnswer(event.target.value);
     answersHandleChange(event);
@@ -141,8 +148,8 @@ const QuestionCreation: FC = () => {
                 error={answersErrorDisplay}
                 helperText={answersHelperText}
                 {...params}
-                onChange={answerHandleChange}
-                onBlur={answerHandleBlur}
+                onChange={handleAnswerChange}
+                onBlur={handleAnswerBlur}
                 value={answer}
                 label="Введите варианты ответов"
               />
@@ -154,7 +161,7 @@ const QuestionCreation: FC = () => {
                 Удалить вопрос
               </Button>
             ) : null}
-            <Button disabled={isDisabledSubmit} variant="contained" onClick={() => handleQuestionSave(id)}>
+            <Button disabled={isDisabledSubmit} variant="contained" onClick={handleQuestionSave}>
               Сохранить вопрос
             </Button>
           </Stack>
