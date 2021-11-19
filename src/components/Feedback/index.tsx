@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 import EmailIcon from '@mui/icons-material/Email';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -9,8 +10,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const Feedback: FC = () => {
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleFeedbackOpen = () => {
@@ -22,11 +28,17 @@ export const Feedback: FC = () => {
   };
   return (
     <>
-      <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
-        <EmailIcon />
-        &nbsp;
-        <Typography variant="body2">Обратная связь </Typography>
-      </IconButton>
+      {isMobile ? (
+        <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
+          <EmailIcon />
+        </IconButton>
+      ) : (
+        <IconButton size="large" color="inherit" onClick={handleFeedbackOpen}>
+          <EmailIcon />
+          &nbsp;
+          <Typography variant="body2">Обратная связь </Typography>
+        </IconButton>
+      )}
 
       <Dialog fullWidth maxWidth="sm" open={isOpen} onClose={handleFeedbackClose}>
         <DialogTitle>Привет!</DialogTitle>

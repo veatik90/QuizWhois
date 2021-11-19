@@ -8,6 +8,7 @@ import { NavLinkStyled } from './styles';
 export const Notifications: FC = () => {
   const [packs, setPacks] = useState<Pack[]>(PACKS);
   const filteredPacks = packs.filter((p) => p.isDraft === true);
+  // eslint-disable-next-line no-console
   console.log(setPacks);
   return (
     <Container component="main" maxWidth="md">
@@ -17,7 +18,7 @@ export const Notifications: FC = () => {
       <Stack mt={2} direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
         {filteredPacks ? (
           filteredPacks.map((p) => (
-            <NavLinkStyled to={Routes.MY_CREATED_GAMES}>
+            <NavLinkStyled key={p.id} to={Routes.MY_CREATED_GAMES}>
               <Paper elevation={4}>
                 <Alert severity="info">
                   <Typography>

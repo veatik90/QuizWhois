@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -10,7 +11,7 @@ import { withTabs } from '../../hoc/withTabs';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export function GameCatalog() {
+export const GameCatalog: FC = () => {
   return (
     <Container component="main" maxWidth="lg">
       <Typography variant="h4" align="center" color="primary" gutterBottom sx={{ marginTop: 1 }}>
@@ -38,6 +39,6 @@ export function GameCatalog() {
       </Grid>
     </Container>
   );
-}
+};
 
 export const GameCatalogPage = withTabs(GameCatalog);
