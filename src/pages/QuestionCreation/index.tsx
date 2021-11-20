@@ -26,6 +26,7 @@ const QuestionCreation: FC = () => {
   const [answers, setAnswers] = useState<string[]>([]);
   const [answer, setAnswer] = useState('example');
   const [isEdit, setIsEdit] = useState(false);
+  const [isDisabledSubmitPack, setIsDisabledSubmitPack] = useState(true);
 
   const {
     errorDisplay: answersErrorDisplay,
@@ -43,7 +44,11 @@ const QuestionCreation: FC = () => {
     validationSetEmptyValue: questionValidationSetEmptyValue,
     validationSetValue: questionValidationSetValue,
   } = useFieldValidation([ValidationTypes.REQUIRED]);
-  const { isDisabledSubmit } = useFormValidation([answersErrorValidation, questionErrorValidation]);
+
+  const { isDisabledSubmit: isDisabledSubmitQuestion } = useFormValidation([
+    answersErrorValidation,
+    questionErrorValidation,
+  ]);
 
   const handleChangeQuestion = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setQuestion(event.target.value);
@@ -51,6 +56,14 @@ const QuestionCreation: FC = () => {
 
   const handleChangeAnswers = (event: SyntheticEvent<Element, Event>, value: string[]) => {
     setAnswers(value);
+  };
+
+  const questionsValidator = (checkQuestions: IQuestion[]) => {
+    if (checkQuestions.length === 0) {
+      setIsDisabledSubmitPack(true);
+    } else {
+      setIsDisabledSubmitPack(false);
+    }
   };
 
   const handleQuestionSave = () => {
@@ -74,16 +87,19 @@ const QuestionCreation: FC = () => {
 
     answersValidationSetEmptyValue();
     questionValidationSetEmptyValue();
+
+    questionsValidator(questions);
   };
 
   const handleQuestionDelete = (elemId: number) => {
-    const tmpQuestions = questions.filter((elem) => elem.id !== elemId);
-    setQuestions(tmpQuestions);
-    setQuestions(tmpQuestions);
+    const actualQuestions = questions.filter((elem) => elem.id !== elemId);
+    setQuestions(actualQuestions);
     setAnswers([]);
     setQuestion('');
     setId(elemId);
     setIsEdit(false);
+
+    questionsValidator(actualQuestions);
   };
 
   const handleQuestionClick = (elemId: number) => {
@@ -161,7 +177,7 @@ const QuestionCreation: FC = () => {
                 Удалить вопрос
               </Button>
             ) : null}
-            <Button disabled={isDisabledSubmit} variant="contained" onClick={handleQuestionSave}>
+            <Button disabled={isDisabledSubmitQuestion} variant="contained" onClick={handleQuestionSave}>
               Сохранить вопрос
             </Button>
           </Stack>
@@ -176,7 +192,7 @@ const QuestionCreation: FC = () => {
               </QuestionSpanStyled>
             ))}
           </QuestionsStackStyled>
-          <SavePackButtonStyled variant="contained" fullWidth onClick={handleSavePack}>
+          <SavePackButtonStyled disabled={isDisabledSubmitPack} variant="contained" fullWidth onClick={handleSavePack}>
             Сохранить пакет
           </SavePackButtonStyled>
         </BoxWithBorderStyled>
