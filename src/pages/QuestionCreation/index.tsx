@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { Button, Grid, Stack, TextField } from '@mui/material';
-import { FC, SyntheticEvent, useState } from 'react';
+import { FC, useEffect } from 'react';
 import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import * as React from 'react';
@@ -13,123 +13,71 @@ import {
   QuestionsStackStyled,
   SavePackButtonStyled,
 } from './styles';
-import { IQuestion } from './interfaces';
-import { useFieldValidation } from '../../shared/utils/validation/hooks/useFieldValidation';
-import { ValidationTypes } from '../../shared/constants/validationConstants';
-import { useFormValidation } from '../../shared/utils/validation/hooks/useFormValidation';
 import { withTabs } from '../../hoc/withTabs';
+import { useQuestionCRUD } from './components/hooks/useQuestionCRUD';
+import { useQuestionValidation } from './components/hooks/useQuestionValidation';
 
 const QuestionCreation: FC = () => {
-  const [questions, setQuestions] = useState<IQuestion[]>([]);
-  const [id, setId] = useState(0);
-  const [question, setQuestion] = useState('');
-  const [answers, setAnswers] = useState<string[]>([]);
-  const [answer, setAnswer] = useState('example');
-  const [isEdit, setIsEdit] = useState(false);
-  const [isDisabledSubmitPack, setIsDisabledSubmitPack] = useState(true);
+  const {
+    handleChangeQuestion,
+    handleChangeAnswers,
+    handleAnswerChange,
+    handleAnswerBlur,
+    handleQuestionDelete,
+    handleQuestionSave,
+    handleQuestionClick,
+    question,
+    answers,
+    answer,
+    isEdit,
+    questions,
+  } = useQuestionCRUD();
 
   const {
-    errorDisplay: answersErrorDisplay,
-    errorValidation: answersErrorValidation,
-    helperText: answersHelperText,
-    handleChange: answersHandleChange,
-    validationSetEmptyValue: answersValidationSetEmptyValue,
-    validationSetValue: answersValidationSetValue,
-  } = useFieldValidation([ValidationTypes.REQUIRED]);
-  const {
-    errorDisplay: questionErrorDisplay,
-    errorValidation: questionErrorValidation,
-    helperText: questionHelperText,
-    handleChange: questionHandleChange,
-    validationSetEmptyValue: questionValidationSetEmptyValue,
-    validationSetValue: questionValidationSetValue,
-  } = useFieldValidation([ValidationTypes.REQUIRED]);
+    handleValidationQuestionSave,
+    handleValidationQuestionClick,
+    handleValidationQuestionChange,
+    handleValidationAnswersChange,
+    answersErrorDisplay,
+    answersHelperText,
+    questionErrorDisplay,
+    questionHelperText,
+    isDisabledSubmitQuestion,
+    isDisabledSubmitPack,
+    questionsValidator,
+  } = useQuestionValidation();
 
-  const { isDisabledSubmit: isDisabledSubmitQuestion } = useFormValidation([
-    answersErrorValidation,
-    questionErrorValidation,
-  ]);
-
-  const handleChangeQuestion = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setQuestion(event.target.value);
-  };
-
-  const handleChangeAnswers = (event: SyntheticEvent<Element, Event>, value: string[]) => {
-    setAnswers(value);
-  };
-
-  const questionsValidator = (checkQuestions: IQuestion[]) => {
-    if (checkQuestions.length === 0) {
-      setIsDisabledSubmitPack(true);
-    } else {
-      setIsDisabledSubmitPack(false);
-    }
-  };
-
-  const handleQuestionSave = () => {
-    const isNotNewQuestion = questions.filter((elem) => elem.id === id).length === 1;
-    if (isNotNewQuestion) {
-      for (let i = 0; i < questions.length; i += 1) {
-        if (questions[i].id === id) {
-          questions[i] = { id, question, answers };
-          break;
-        }
-      }
-    } else {
-      questions.push({ id, question, answers });
-    }
-
-    setQuestions(questions);
-    setAnswers([]);
-    setQuestion('');
-    setId(questions.length);
-    setIsEdit(false);
-
-    answersValidationSetEmptyValue();
-    questionValidationSetEmptyValue();
-
+  useEffect(() => {
     questionsValidator(questions);
-  };
-
-  const handleQuestionDelete = (elemId: number) => {
-    const actualQuestions = questions.filter((elem) => elem.id !== elemId);
-    setQuestions(actualQuestions);
-    setAnswers([]);
-    setQuestion('');
-    setId(elemId);
-    setIsEdit(false);
-
-    questionsValidator(actualQuestions);
-  };
-
-  const handleQuestionClick = (elemId: number) => {
-    const [tmpQuestion] = questions.filter((elem) => elem.id === elemId);
-    console.log(tmpQuestion, elemId, questions);
-    setId(tmpQuestion.id);
-    setQuestion(tmpQuestion.question);
-    setAnswers(tmpQuestion.answers);
-    setIsEdit(true);
-
-    questionValidationSetValue(tmpQuestion.question);
-    answersValidationSetValue(tmpQuestion.answers[0] ? tmpQuestion.answers[0] : '');
-  };
+  }, [questionsValidator, questions]);
 
   const handleSavePack = () => {
     console.log('save pack');
   };
 
-  const handleAnswerBlur = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (event.target.value) {
-      answers.push(event.target.value);
-      setAnswers(answers);
-      setAnswer('');
-    }
+  const allHandleQuestionSave = () => {
+    handleValidationQuestionSave();
+    handleQuestionSave();
   };
 
-  const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    event.preventDefault();
-    setAnswer(event.target.value);
-    answersHandleChange(event);
+  const allHandleQuestionDelete = () => {
+    handleValidationQuestionSave();
+    handleQuestionDelete();
+  };
+
+  const allHandleQuestionClick = (elemId: number) => {
+    handleQuestionClick(elemId);
+    handleValidationQuestionClick(questions);
+  };
+
+  const allHandleQuestionChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    handleValidationQuestionChange(event);
+    handleChangeQuestion(event);
+  };
+
+  const allHandleAnswerChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    handleValidationAnswersChange(event);
+    handleAnswerChange(event);
   };
 
   return (
@@ -137,10 +85,7 @@ const QuestionCreation: FC = () => {
       <Grid item xs={4}>
         <Stack spacing={2}>
           <TextField
-            onChange={(event) => {
-              questionHandleChange(event);
-              handleChangeQuestion(event);
-            }}
+            onChange={allHandleQuestionChange}
             error={questionErrorDisplay}
             helperText={questionHelperText}
             label="Введите вопрос"
@@ -164,7 +109,7 @@ const QuestionCreation: FC = () => {
                 error={answersErrorDisplay}
                 helperText={answersHelperText}
                 {...params}
-                onChange={handleAnswerChange}
+                onChange={allHandleAnswerChange}
                 onBlur={handleAnswerBlur}
                 value={answer}
                 label="Введите варианты ответов"
@@ -173,11 +118,11 @@ const QuestionCreation: FC = () => {
           />
           <Stack direction="row" justifyContent={isEdit ? 'space-between' : 'flex-end'}>
             {isEdit ? (
-              <Button variant="outlined" onClick={() => handleQuestionDelete(id)}>
+              <Button variant="outlined" onClick={() => allHandleQuestionDelete()}>
                 Удалить вопрос
               </Button>
             ) : null}
-            <Button disabled={isDisabledSubmitQuestion} variant="contained" onClick={handleQuestionSave}>
+            <Button disabled={isDisabledSubmitQuestion} variant="contained" onClick={allHandleQuestionSave}>
               Сохранить вопрос
             </Button>
           </Stack>
@@ -187,7 +132,7 @@ const QuestionCreation: FC = () => {
         <BoxWithBorderStyled className="QuestionsBox">
           <QuestionsStackStyled position="static">
             {questions.map((elem, index) => (
-              <QuestionSpanStyled key={elem.id} onClick={() => handleQuestionClick(elem.id)}>
+              <QuestionSpanStyled key={elem.id} onClick={() => allHandleQuestionClick(elem.id)}>
                 <p className="questionP">{`${index + 1}) ${elem.question}`}</p>
               </QuestionSpanStyled>
             ))}
