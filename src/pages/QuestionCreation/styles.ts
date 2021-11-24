@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Box, Button, Grid, Stack } from '@mui/material';
+import { Box, Button, Grid, Menu, Stack } from '@mui/material';
 import { HEADER_HEIGHT } from '../../shared/constants';
 import { theme } from '../../theme';
 
@@ -60,8 +60,7 @@ export const QuestionSpanStyled = styled.span`
   }
   &:hover {
     cursor: pointer;
-    background-color: ${theme.palette.primary.main};
-    color: ${theme.palette.primary.contrastText};
+    text-decoration: underline ${theme.palette.primary.main};
   }
 `;
 
@@ -69,4 +68,10 @@ export const QuestionsStackStyled = styled(Stack)`
   height: 100%;
   padding: 14px 16px;
   overflow-y: auto;
+`;
+
+export const MenuStyled = styled(Menu)`
+  &.app-bar-menu {
+    top: calc(${HEADER_HEIGHT}px - 28px);
+  }
 `;

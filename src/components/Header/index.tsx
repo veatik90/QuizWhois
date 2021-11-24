@@ -1,14 +1,4 @@
-import {
-  FormGroup,
-  FormControlLabel,
-  Toolbar,
-  AppBar,
-  IconButton,
-  Typography,
-  Menu,
-  MenuItem,
-  Button,
-} from '@mui/material';
+import { FormGroup, FormControlLabel, Toolbar, AppBar, IconButton, Typography, MenuItem, Button } from '@mui/material';
 import React, { FC, useState } from 'react';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CheckIcon from '@mui/icons-material/Check';
@@ -17,6 +7,7 @@ import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
+import { MenuStyled } from '../../pages/QuestionCreation/styles';
 
 export const Header: FC = () => {
   const [isAuth, setIsAuth] = useState(true);
@@ -97,7 +88,6 @@ export const Header: FC = () => {
             <div>
               <IconButton size="large" color="inherit">
                 <EmailIcon />
-                &nbsp;
                 <Typography variant="body2">Обратная связь </Typography>
               </IconButton>
               <IconButton
@@ -110,7 +100,8 @@ export const Header: FC = () => {
               >
                 <AccountCircle />
               </IconButton>
-              <Menu
+              <MenuStyled
+                className="app-bar-menu"
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -140,7 +131,7 @@ export const Header: FC = () => {
                 <LogoutStyled className="logout-menu-item" onClick={handleLogout}>
                   Logout
                 </LogoutStyled>
-              </Menu>
+              </MenuStyled>
             </div>
           ) : (
             <div>

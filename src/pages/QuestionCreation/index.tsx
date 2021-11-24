@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import { Button, Grid, Stack, TextField } from '@mui/material';
+import { Button, Grid, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { FC, useState } from 'react';
+import { SwipeableEdgeDrawer } from './components/Drower';
 import { ISynonym, IQuestion } from './interfaces';
 import {
   BoxWithBorderStyled,
@@ -9,7 +10,6 @@ import {
   QuestionsStackStyled,
   SavePackButtonStyled,
 } from './styles';
-// import { AnswerFieldStyled, AnswerStyled } from './styles';
 
 export const QuestionCreation: FC = () => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
@@ -19,6 +19,8 @@ export const QuestionCreation: FC = () => {
   const [answerSynonyms, setAnswerSynonyms] = useState<ISynonym[]>([{ id: 0, synonym: '' }]);
   const [isEdit, setIsEdit] = useState(false);
 
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(`(min-width:${theme.breakpoints.values.sm}px)`);
   const handleChangeQuestion = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(event.target.value);
   };
@@ -95,7 +97,7 @@ export const QuestionCreation: FC = () => {
 
   return (
     <GridStyled className="QuestionCreationPageBlock" container spacing={2}>
-      <Grid item xs={4}>
+      <Grid item xs={isDesktop ? 4 : 7}>
         <Stack spacing={2}>
           <TextField label="Введите вопрос" value={question} multiline rows={4} onChange={handleChangeQuestion} />
           <TextField label="Введите ответ(ы)" value={answer} onChange={handleChangeAnswer} />
@@ -110,7 +112,11 @@ export const QuestionCreation: FC = () => {
               onKeyDown={(e) => handleEnterDown(elem.id, e)}
             />
           ))}
-          <Stack direction="row" justifyContent={isEdit ? 'space-between' : 'flex-end'}>
+          <Stack
+            spacing={2}
+            direction={isDesktop ? 'row' : 'column-reverse'}
+            justifyContent={isEdit ? 'space-between' : 'flex-end'}
+          >
             {isEdit ? (
               <Button variant="outlined" onClick={() => handleQuestionDelete(id)}>
                 Удалить вопрос
@@ -120,22 +126,37 @@ export const QuestionCreation: FC = () => {
               Сохранить вопрос
             </Button>
           </Stack>
+          {isDesktop ? null : (
+            <SavePackButtonStyled variant="contained" fullWidth onClick={handleSavePack}>
+              Сохранить пакет
+            </SavePackButtonStyled>
+          )}
         </Stack>
       </Grid>
-      <Grid item xs={4} ml={10}>
-        <BoxWithBorderStyled className="QuestionsBox">
-          <QuestionsStackStyled position="static">
-            {questions.map((elem, index) => (
-              <QuestionSpanStyled key={elem.id} onClick={() => handleQuestionQlick(elem.id)}>
-                <p className="questionP">{`${index + 1}) ${elem.question}`}</p>
-              </QuestionSpanStyled>
-            ))}
-          </QuestionsStackStyled>
-          <SavePackButtonStyled variant="contained" fullWidth onClick={handleSavePack}>
-            Сохранить пакет
-          </SavePackButtonStyled>
-        </BoxWithBorderStyled>
-      </Grid>
+      {isDesktop ? (
+        <Grid item xs={4} ml={10}>
+          <BoxWithBorderStyled className="QuestionsBox">
+            <QuestionsStackStyled position="static">
+              {questions.length > 0 ? (
+                questions.map((elem, index) => (
+                  <QuestionSpanStyled key={elem.id} onClick={() => handleQuestionQlick(elem.id)}>
+                    <p className="questionP">{`${index + 1}) ${elem.question}`}</p>
+                  </QuestionSpanStyled>
+                ))
+              ) : (
+                <Typography align="center" color="gray">
+                  Пока нет созданных вопросов
+                </Typography>
+              )}
+            </QuestionsStackStyled>
+            <SavePackButtonStyled variant="contained" fullWidth onClick={handleSavePack}>
+              Сохранить пакет
+            </SavePackButtonStyled>
+          </BoxWithBorderStyled>
+        </Grid>
+      ) : (
+        <SwipeableEdgeDrawer questions={questions} handleQuestionQlick={handleQuestionQlick} />
+      )}
     </GridStyled>
   );
 };
