@@ -1,8 +1,11 @@
 /* eslint-disable no-console */
+/* eslint-disable react/jsx-props-no-spreading */
 import { Button, Grid, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC, useEffect } from 'react';
+import Chip from '@mui/material/Chip';
+import Autocomplete from '@mui/material/Autocomplete';
+import * as React from 'react';
 import { SwipeableEdgeDrawer } from './components/Drower';
-import { ISynonym, IQuestion } from './interfaces';
 import {
   BoxWithBorderStyled,
   GridStyled,
@@ -10,119 +13,122 @@ import {
   QuestionsStackStyled,
   SavePackButtonStyled,
 } from './styles';
+import { withTabs } from '../../hoc/withTabs';
+import { useQuestionCRUD } from './components/hooks/useQuestionCRUD';
+import { useQuestionValidation } from './components/hooks/useQuestionValidation';
 
-export const QuestionCreation: FC = () => {
-  const [questions, setQuestions] = useState<IQuestion[]>([]);
-  const [id, setId] = useState(0);
-  const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState('');
-  const [answerSynonyms, setAnswerSynonyms] = useState<ISynonym[]>([{ id: 0, synonym: '' }]);
-  const [isEdit, setIsEdit] = useState(false);
+const QuestionCreation: FC = () => {
+  const {
+    handleChangeQuestion,
+    handleChangeAnswers,
+    handleAnswerChange,
+    handleAnswerBlur,
+    handleQuestionDelete,
+    handleQuestionSave,
+    handleQuestionClick,
+    question,
+    answers,
+    answer,
+    isEdit,
+    questions,
+  } = useQuestionCRUD();
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(`(min-width:${theme.breakpoints.values.sm}px)`);
-  const handleChangeQuestion = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuestion(event.target.value);
-  };
+  const {
+    handleValidationQuestionSave,
+    handleValidationQuestionClick,
+    handleValidationQuestionChange,
+    handleValidationAnswersChange,
+    answersErrorDisplay,
+    answersHelperText,
+    questionErrorDisplay,
+    questionHelperText,
+    isDisabledSubmitQuestion,
+    isDisabledSubmitPack,
+    questionsValidator,
+  } = useQuestionValidation();
 
-  const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAnswer(event.target.value);
-  };
-
-  const handleChangeSynonym = (elemId: number, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const tmpAnswerSynonyms = [...answerSynonyms];
-    const synonym = event.target.value;
-    tmpAnswerSynonyms[elemId].synonym = synonym;
-    setAnswerSynonyms(tmpAnswerSynonyms);
-  };
-
-  const handleEnterDown = (elemId: number, event: React.KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
-    if (event.key === 'Enter') {
-      const tmpAnswerSynonyms = answerSynonyms.filter((elem) => elem.synonym.length > 0);
-      if (tmpAnswerSynonyms.length === answerSynonyms.length) {
-        tmpAnswerSynonyms.push({ id: tmpAnswerSynonyms.length, synonym: '' });
-      }
-      if (tmpAnswerSynonyms.length === 0) tmpAnswerSynonyms.push({ id: tmpAnswerSynonyms.length, synonym: '' });
-      setAnswerSynonyms(tmpAnswerSynonyms);
-    }
-  };
-
-  const handleQuestionSave = (elemId: number) => {
-    let tmpQuestions: IQuestion[] = [];
-    if (questions) tmpQuestions = [...questions];
-    if (question !== '' && answer !== '') {
-      setAnswerSynonyms(answerSynonyms.filter((elem) => elem.synonym.length > 0)); // не успевает убрать пустые синонимы
-      if (questions.filter((elem) => elem.id === elemId).length > 0) {
-        tmpQuestions.map((elem, index) => {
-          if (elem.id === elemId) {
-            tmpQuestions[index] = { id, question, answer, answerSynonyms };
-          }
-          return elem;
-        });
-      } else tmpQuestions.push({ id: elemId, question, answer, answerSynonyms });
-    }
-    console.log(tmpQuestions);
-    setQuestions(tmpQuestions);
-    setAnswerSynonyms([{ id: 0, synonym: '' }]);
-    setAnswer('');
-    setQuestion('');
-    setId(tmpQuestions.length);
-    setIsEdit(false);
-  };
-
-  const handleQuestionDelete = (elemId: number) => {
-    const tmpQuestions = questions.filter((elem) => elem.id !== elemId);
-    setQuestions(tmpQuestions);
-    setQuestions(tmpQuestions);
-    setAnswerSynonyms([{ id: 0, synonym: '' }]);
-    setAnswer('');
-    setQuestion('');
-    setId(elemId);
-    setIsEdit(false);
-  };
-
-  const handleQuestionQlick = (elemId: number) => {
-    const [tmpQuestion] = questions.filter((elem) => elem.id === elemId);
-    console.log(tmpQuestion, elemId, questions);
-    setId(tmpQuestion.id);
-    setQuestion(tmpQuestion.question);
-    setAnswer(tmpQuestion.answer);
-    setAnswerSynonyms(tmpQuestion.answerSynonyms);
-    setIsEdit(true);
-  };
+  useEffect(() => {
+    questionsValidator(questions);
+  }, [questionsValidator, questions]);
 
   const handleSavePack = () => {
     console.log('save pack');
+  };
+
+  const allHandleQuestionSave = () => {
+    handleValidationQuestionSave();
+    handleQuestionSave();
+  };
+
+  const allHandleQuestionDelete = () => {
+    handleValidationQuestionSave();
+    handleQuestionDelete();
+  };
+
+  const allHandleQuestionClick = (elemId: number) => {
+    handleQuestionClick(elemId);
+    handleValidationQuestionClick(questions);
+  };
+
+  const allHandleQuestionChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    handleValidationQuestionChange(event);
+    handleChangeQuestion(event);
+  };
+
+  const allHandleAnswerChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    handleValidationAnswersChange(event);
+    handleAnswerChange(event);
   };
 
   return (
     <GridStyled className="QuestionCreationPageBlock" container spacing={2}>
       <Grid item xs={isDesktop ? 4 : 7}>
         <Stack spacing={2}>
-          <TextField label="Введите вопрос" value={question} multiline rows={4} onChange={handleChangeQuestion} />
-          <TextField label="Введите ответ(ы)" value={answer} onChange={handleChangeAnswer} />
-          {answerSynonyms.map((elem) => (
-            <TextField
-              key={elem.id}
-              label="Synonym"
-              size="small"
-              helperText="optional"
-              value={elem.synonym}
-              onChange={(e) => handleChangeSynonym(elem.id, e)}
-              onKeyDown={(e) => handleEnterDown(elem.id, e)}
-            />
-          ))}
+          <TextField
+            onChange={allHandleQuestionChange}
+            error={questionErrorDisplay}
+            helperText={questionHelperText}
+            label="Введите вопрос"
+            value={question}
+            multiline
+            rows={4}
+          />
+          <Autocomplete
+            value={answers}
+            onChange={handleChangeAnswers}
+            freeSolo
+            multiple
+            options={[] as string[]}
+            renderTags={(value: readonly string[], getTagProps) => {
+              return value.map((option: string, index: number) => (
+                <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+              ));
+            }}
+            renderInput={(params) => (
+              <TextField
+                error={answersErrorDisplay}
+                helperText={answersHelperText}
+                {...params}
+                onChange={allHandleAnswerChange}
+                onBlur={handleAnswerBlur}
+                value={answer}
+                label="Введите варианты ответов"
+              />
+            )}
+          />
           <Stack
             spacing={2}
             direction={isDesktop ? 'row' : 'column-reverse'}
             justifyContent={isEdit ? 'space-between' : 'flex-end'}
           >
             {isEdit ? (
-              <Button variant="outlined" onClick={() => handleQuestionDelete(id)}>
+              <Button variant="outlined" onClick={() => allHandleQuestionDelete()}>
                 Удалить вопрос
               </Button>
             ) : null}
-            <Button variant="contained" onClick={() => handleQuestionSave(id)}>
+            <Button disabled={isDisabledSubmitQuestion} variant="contained" onClick={allHandleQuestionSave}>
               Сохранить вопрос
             </Button>
           </Stack>
@@ -139,7 +145,7 @@ export const QuestionCreation: FC = () => {
             <QuestionsStackStyled position="static">
               {questions.length > 0 ? (
                 questions.map((elem, index) => (
-                  <QuestionSpanStyled key={elem.id} onClick={() => handleQuestionQlick(elem.id)}>
+                  <QuestionSpanStyled key={elem.id} onClick={() => allHandleQuestionClick(elem.id)}>
                     <p className="questionP">{`${index + 1}) ${elem.question}`}</p>
                   </QuestionSpanStyled>
                 ))
@@ -149,14 +155,21 @@ export const QuestionCreation: FC = () => {
                 </Typography>
               )}
             </QuestionsStackStyled>
-            <SavePackButtonStyled variant="contained" fullWidth onClick={handleSavePack}>
+            <SavePackButtonStyled
+              disabled={isDisabledSubmitPack}
+              variant="contained"
+              fullWidth
+              onClick={handleSavePack}
+            >
               Сохранить пакет
             </SavePackButtonStyled>
           </BoxWithBorderStyled>
         </Grid>
       ) : (
-        <SwipeableEdgeDrawer questions={questions} handleQuestionQlick={handleQuestionQlick} />
+        <SwipeableEdgeDrawer questions={questions} handleQuestionQlick={allHandleQuestionClick} />
       )}
     </GridStyled>
   );
 };
+
+export const QuestionCreationPage = withTabs(QuestionCreation);

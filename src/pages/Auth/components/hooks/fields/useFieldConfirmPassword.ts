@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { validationField } from '../../../../../components/validation/validationField';
+import { validationField } from '../../../../../shared/utils/validation/validationField';
 import { AuthField } from './interfaces';
 import { ValidationTypes } from '../../../../../shared/constants/validationConstants';
 
