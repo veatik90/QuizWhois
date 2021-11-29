@@ -7,8 +7,8 @@ import { IQuestion } from '../../interfaces';
 export const useQuestionCRUD = () => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const [id, setId] = useState(0);
-  const [isEdit, setIsEdit] = useState(false);
   const [answer, setAnswer] = useState('example');
+  const [isEdit, setIsEdit] = useState(false);
   const [answers, setAnswers] = useState<string[]>([]);
   const [question, setQuestion] = useState('');
 
@@ -17,21 +17,15 @@ export const useQuestionCRUD = () => {
   };
 
   const handleQuestionSave = () => {
-    const tmpQuestions = questions;
-    const isNotNewQuestion = questions.filter((elem) => elem.id === id).length === 1;
-    if (isNotNewQuestion) {
-      for (let i = 0; i < questions.length; i += 1) {
-        if (questions[i].id === id) {
-          tmpQuestions[i] = { id, question, answers };
-          break;
-        }
-      }
+    const tmpQuestions = [...questions];
+    const questionIndex = tmpQuestions.findIndex((elem) => elem.id === id);
+    if (questionIndex >= 0) {
+      tmpQuestions[questionIndex] = { id, question, answers };
     } else {
       tmpQuestions.push({ id, question, answers });
     }
 
-    // TODO: в данной функции без setQuestions происходит присвоение useState question. Как?!
-    // setQuestions(test);
+    setQuestions(tmpQuestions);
     setAnswers([]);
     setQuestion('');
     setId(questions.length);
