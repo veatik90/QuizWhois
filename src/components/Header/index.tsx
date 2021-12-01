@@ -1,15 +1,6 @@
-import {
-  FormGroup,
-  FormControlLabel,
-  Toolbar,
-  AppBar,
-  IconButton,
-  Typography,
-  Menu,
-  MenuItem,
-  Button,
-} from '@mui/material';
+import { FormGroup, FormControlLabel, Toolbar, AppBar, IconButton, Typography, Menu, MenuItem } from '@mui/material';
 import React, { FC, useState } from 'react';
+import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CheckIcon from '@mui/icons-material/Check';
 import Switch from '@mui/material/Switch';
@@ -17,6 +8,8 @@ import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
 import { Feedback } from '../Feedback';
+import { Login } from '../GoogleAuth/Login';
+import { Logout } from '../GoogleAuth/Logout';
 
 export const Header: FC = () => {
   const [isAuth, setIsAuth] = useState(true);
@@ -26,6 +19,7 @@ export const Header: FC = () => {
     login: 'user',
     roles: { isAdmin: true, isPlayer: false },
   });
+  const [, setGoogleAccessToken] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsAuth(event.target.checked);
@@ -134,15 +128,19 @@ export const Header: FC = () => {
                   {userInfo.roles.isPlayer ? <CheckIcon /> : null}
                 </MenuItem>
                 <LogoutStyled className="logout-menu-item" onClick={handleLogout}>
-                  Logout
+                  <Logout />
                 </LogoutStyled>
               </Menu>
             </div>
           ) : (
             <div>
-              <Button component={NavLink} to="/auth" variant="outlined" color="secondary" size="medium">
-                Sign In
-              </Button>
+              <Login
+                loginSuccess={(response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+                  if ('tokenId' in response) {
+                    setGoogleAccessToken(response.tokenId);
+                  }
+                }}
+              />
             </div>
           )}
         </Toolbar>
