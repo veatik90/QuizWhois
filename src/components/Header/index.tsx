@@ -8,8 +8,8 @@ import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
 import { Feedback } from '../Feedback';
-import { Login } from '../../pages/GoogleAuth/Login';
-import { Logout } from '../../pages/GoogleAuth/Logout';
+import { Login } from '../GoogleAuth/Login';
+import { Logout } from '../GoogleAuth/Logout';
 
 export const Header: FC = () => {
   const [isAuth, setIsAuth] = useState(true);

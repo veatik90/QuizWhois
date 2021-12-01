@@ -6,12 +6,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { theme } from './theme';
 import { ErrorToastProvider } from './contexts/ErrorToastContext';
+import { user } from './shared/constants';
+import { AuthContext } from './shared/AuthContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <ErrorToastProvider>
-        <App />
+        <AuthContext.Provider value={user}>
+          <App />
+        </AuthContext.Provider>
       </ErrorToastProvider>
     </ThemeProvider>
   </React.StrictMode>,
