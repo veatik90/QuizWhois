@@ -2,8 +2,7 @@
 import { Button } from '@mui/material';
 import { GoogleLogout } from 'react-google-login';
 import { useAxiosPostLazy } from '../../../hooks/axios/useAxiosPostLazy';
-
-const clientId = '371103055108-mg03m799auodu20ael4hal3j7g7gbrvr.apps.googleusercontent.com';
+import { clientId } from '../constants';
 
 export function Logout() {
   const { postRequest, response: responseLazy, error: errorLazy, isLoading: isLoadingLazy } = useAxiosPostLazy();
@@ -15,9 +14,7 @@ export function Logout() {
 
   return (
     <GoogleLogout
-      render={(renderProps) => (
-        <Button onClick={() => postRequest('http://kmatroskin.ru/auth/logout', {})}>Logout</Button>
-      )}
+      render={() => <Button onClick={() => postRequest('http://kmatroskin.ru/auth/logout', {})}>Logout</Button>}
       clientId={clientId}
       buttonText="Logout"
       onLogoutSuccess={onSuccess}

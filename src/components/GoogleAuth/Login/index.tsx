@@ -1,37 +1,31 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from '@mui/material';
 import { FC, useState } from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-import { useAxiosGetLazy } from '../../../hooks/axios/useAxiosGetLazy';
+import { clientId } from '../constants';
+import { StyledA } from './styles';
 
-const clientId = '371103055108-mg03m799auodu20ael4hal3j7g7gbrvr.apps.googleusercontent.com';
-
-interface GoogleSignInComponentProps {
-  loginSuccess: (response: GoogleLoginResponse | GoogleLoginResponseOffline) => void;
-}
-
-export const Login: FC<GoogleSignInComponentProps> = ({ loginSuccess }) => {
-  const { getRequest, response: responseLazy, error: errorLazy, isLoading: isLoadingLazy } = useAxiosGetLazy();
+export const Login: FC = () => {
   const [, setLoginFailed] = useState<boolean>();
-
+  const [, setGoogleAccessToken] = useState<string>('');
+  const loginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    if ('tokenId' in response) {
+      setGoogleAccessToken(response.tokenId);
+    }
+  };
+  const handleFailure = () => {
+    setLoginFailed(true);
+  };
   return (
     <GoogleLogin
-      render={(renderProps) => (
-        <Button
-          onClick={() => getRequest('http://kmatroskin.ru/auth/login')}
-          variant="outlined"
-          color="secondary"
-          size="medium"
-        >
-          Sign In
+      render={() => (
+        <Button variant="outlined" color="secondary" size="medium">
+          <StyledA href="http://kmatroskin.ru/auth/login">Sign In</StyledA>
         </Button>
       )}
       clientId={clientId}
       buttonText="Google"
       onSuccess={loginSuccess}
-      onFailure={() => {
-        setLoginFailed(true);
-      }}
+      onFailure={handleFailure}
       cookiePolicy="single_host_origin"
       responseType="code,token"
     />

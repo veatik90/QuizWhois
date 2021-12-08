@@ -1,6 +1,5 @@
 import { FormGroup, FormControlLabel, Toolbar, AppBar, IconButton, Typography, Menu, MenuItem } from '@mui/material';
 import React, { FC, useState } from 'react';
-import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CheckIcon from '@mui/icons-material/Check';
 import Switch from '@mui/material/Switch';
@@ -19,7 +18,6 @@ export const Header: FC = () => {
     login: 'user',
     roles: { isAdmin: true, isPlayer: false },
   });
-  const [, setGoogleAccessToken] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsAuth(event.target.checked);
@@ -134,13 +132,7 @@ export const Header: FC = () => {
             </div>
           ) : (
             <div>
-              <Login
-                loginSuccess={(response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-                  if ('tokenId' in response) {
-                    setGoogleAccessToken(response.tokenId);
-                  }
-                }}
-              />
+              <Login />
             </div>
           )}
         </Toolbar>
