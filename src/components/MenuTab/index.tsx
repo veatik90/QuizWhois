@@ -107,7 +107,7 @@ export const MenuTab: FC = () => {
           })}
         </Tabs>
       ) : (
-        <Tabs value={checkTabValue()} variant="scrollable" scrollButtons allowScrollButtonsMobile centered>
+        <Tabs value={checkTabValue()} variant="scrollable" scrollButtons allowScrollButtonsMobile>
           {Object.values(appTabsConfig).map((tab) => {
             return tab.url === Routes.TRAINING ? (
               <Tab
