@@ -5,11 +5,11 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ErrorToast } from './interfaces';
 import { StackStyled, AlertStyled } from './styles';
 
-export const ErrorToastContext = createContext<ErrorToast>({} as ErrorToast);
+export const ToastContext = createContext<ErrorToast>({} as ErrorToast);
 
-export const ErrorToastProvider: FC = ({ children }) => {
+export const ToastProvider: FC = ({ children }) => {
   const [isToastOpen, setIsToastOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [message, setMessage] = useState('');
   const [type, setType] = useState<AlertColor | undefined>('info');
 
   const [isCopyTooltipShown, setIsCopyTooltipShown] = useState(false);
@@ -17,11 +17,11 @@ export const ErrorToastProvider: FC = ({ children }) => {
   // eslint-disable-next-line @typescript-eslint/no-shadow
   function handleToastOpen(error: string, type: AlertColor | undefined) {
     setIsToastOpen(true);
-    setErrorMessage(error);
+    setMessage(error);
     setType(type);
     setTimeout(() => {
       setIsToastOpen(false);
-      setErrorMessage('');
+      setMessage('');
     }, 6000);
   }
 
@@ -34,9 +34,9 @@ export const ErrorToastProvider: FC = ({ children }) => {
   }
 
   return (
-    <ErrorToastContext.Provider value={{ showError: handleToastOpen }}>
+    <ToastContext.Provider value={{ showError: handleToastOpen }}>
       <StackStyled spacing={2}>
-        <CopyToClipboard text={errorMessage} onCopy={handleMessageCopy}>
+        <CopyToClipboard text={message} onCopy={handleMessageCopy}>
           <Tooltip
             PopperProps={{
               disablePortal: true,
@@ -48,12 +48,12 @@ export const ErrorToastProvider: FC = ({ children }) => {
             title="Ошибка скопирована"
           >
             <Snackbar open={isToastOpen} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-              <AlertStyled severity={type}>{errorMessage}</AlertStyled>
+              <AlertStyled severity={type}>{message}</AlertStyled>
             </Snackbar>
           </Tooltip>
         </CopyToClipboard>
       </StackStyled>
       {children}
-    </ErrorToastContext.Provider>
+    </ToastContext.Provider>
   );
 };

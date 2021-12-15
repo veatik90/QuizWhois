@@ -14,10 +14,10 @@ import { CreatedGamesPage } from './pages/CreatedGames';
 import { InstantGamePage } from './pages/InstantGame';
 import { GamesArchivePage } from './pages/GamesArchive';
 import { Notifications } from './pages/Notifications';
-import { ErrorToastContext } from './contexts/ErrorToastContext';
+import { ToastContext } from './contexts/ToastContext';
 
 const App: FC = () => {
-  const { showError } = useContext(ErrorToastContext);
+  const { showError } = useContext(ToastContext);
 
   return (
     <>
