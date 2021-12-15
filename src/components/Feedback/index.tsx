@@ -28,6 +28,11 @@ export const Feedback: FC = () => {
   const handleFeedbackClose = () => {
     setIsOpen(false);
   };
+
+  const handleMessageSend = () => {
+    showError('Сообщение отправлено', 'info');
+    handleFeedbackClose();
+  };
   return (
     <>
       {isMobile ? (
@@ -50,14 +55,7 @@ export const Feedback: FC = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleFeedbackClose}>Отмена</Button>
-          <Button
-            onClick={() => {
-              showError('Сообщение отправлено', 'info');
-              handleFeedbackClose();
-            }}
-          >
-            Отправить
-          </Button>
+          <Button onClick={handleMessageSend}>Отправить</Button>
         </DialogActions>
       </Dialog>
     </>
