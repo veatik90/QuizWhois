@@ -1,4 +1,4 @@
-import { Snackbar, Tooltip } from '@mui/material';
+import { Snackbar, Tooltip, AlertColor } from '@mui/material';
 import { createContext, FC, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -10,13 +10,15 @@ export const ErrorToastContext = createContext<ErrorToast>({} as ErrorToast);
 export const ErrorToastProvider: FC = ({ children }) => {
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [type, setType] = useState<AlertColor | undefined>('info');
 
   const [isCopyTooltipShown, setIsCopyTooltipShown] = useState(false);
 
-  function handleToastOpen(error: string) {
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  function handleToastOpen(error: string, type: AlertColor | undefined) {
     setIsToastOpen(true);
     setErrorMessage(error);
-
+    setType(type);
     setTimeout(() => {
       setIsToastOpen(false);
       setErrorMessage('');
@@ -46,7 +48,7 @@ export const ErrorToastProvider: FC = ({ children }) => {
             title="Ошибка скопирована"
           >
             <Snackbar open={isToastOpen} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-              <AlertStyled severity="error">{errorMessage}</AlertStyled>
+              <AlertStyled severity={type}>{errorMessage}</AlertStyled>
             </Snackbar>
           </Tooltip>
         </CopyToClipboard>

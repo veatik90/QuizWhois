@@ -1,3 +1,5 @@
+import { AlertColor } from '@mui/material';
+
 export interface ErrorToast {
-  showError: (error: string) => void;
+  showError: (error: string, type: AlertColor | undefined) => void;
 }
