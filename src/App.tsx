@@ -1,6 +1,5 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { Button } from '@mui/material';
 import { Header } from './components/Header';
 import { NotFound } from './pages/NotFound';
 import { Auth } from './pages/Auth';
@@ -14,60 +13,54 @@ import { CreatedGamesPage } from './pages/CreatedGames';
 import { InstantGamePage } from './pages/InstantGame';
 import { GamesArchivePage } from './pages/GamesArchive';
 import { Notifications } from './pages/Notifications';
-import { ToastContext } from './contexts/ToastContext';
 
 const App: FC = () => {
-  const { showError } = useContext(ToastContext);
-
   return (
-    <>
-      <Button onClick={() => showError('message', 'error')}>показать ошибку</Button>
-      <Router>
-        <Header />
-        <Switch>
-          <Route path={Routes.AUTH}>
-            <Auth />
-          </Route>
-          <Route path={Routes.CATALOG}>
-            <GameCatalogPage />
-          </Route>
-          <Route path={Routes.PACK_CREATION}>
-            <PackCreationPage />
-          </Route>
-          <Route path={Routes.RANDOM_QUESTION}>
-            <RandomQuestionPage />
-          </Route>
-          <Route path={Routes.READY_PACK}>
-            <ReadyPackPage />
-          </Route>
-          <Route path={Routes.RANDOM_PACK}>
-            <RandomPackPage />
-          </Route>
-          <Route path={Routes.MY_CREATED_GAMES}>
-            <CreatedGamesPage />
-          </Route>
-          <Route path={Routes.INSTANT}>
-            <InstantGamePage />
-          </Route>
-          <Route path={Routes.ARCHIVE}>
-            <GamesArchivePage />
-          </Route>
-          <Route path={Routes.NOTIFICATIONS}>
-            <Notifications />
-          </Route>
-          <Route path={Routes.NOT_FOUND}>
-            <NotFound />
-          </Route>
-          <Route exact path={Routes.ROOT}>
-            <Redirect to={Routes.CATALOG} />
-          </Route>
+    <Router>
+      <Header />
+      <Switch>
+        <Route path={Routes.AUTH}>
+          <Auth />
+        </Route>
+        <Route path={Routes.CATALOG}>
+          <GameCatalogPage />
+        </Route>
+        <Route path={Routes.PACK_CREATION}>
+          <PackCreationPage />
+        </Route>
+        <Route path={Routes.RANDOM_QUESTION}>
+          <RandomQuestionPage />
+        </Route>
+        <Route path={Routes.READY_PACK}>
+          <ReadyPackPage />
+        </Route>
+        <Route path={Routes.RANDOM_PACK}>
+          <RandomPackPage />
+        </Route>
+        <Route path={Routes.MY_CREATED_GAMES}>
+          <CreatedGamesPage />
+        </Route>
+        <Route path={Routes.INSTANT}>
+          <InstantGamePage />
+        </Route>
+        <Route path={Routes.ARCHIVE}>
+          <GamesArchivePage />
+        </Route>
+        <Route path={Routes.NOTIFICATIONS}>
+          <Notifications />
+        </Route>
+        <Route path={Routes.NOT_FOUND}>
+          <NotFound />
+        </Route>
+        <Route exact path={Routes.ROOT}>
+          <Redirect to={Routes.CATALOG} />
+        </Route>
 
-          <Route path="*">
-            <Redirect to={Routes.NOT_FOUND} />
-          </Route>
-        </Switch>
-      </Router>
-    </>
+        <Route path="*">
+          <Redirect to={Routes.NOT_FOUND} />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 

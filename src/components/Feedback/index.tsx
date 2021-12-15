@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
 import EmailIcon from '@mui/icons-material/Email';
 import TextField from '@mui/material/TextField';
@@ -11,9 +11,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { ToastContext } from '../../contexts/ToastContext';
 
 export const Feedback: FC = () => {
   const theme = useTheme();
+  const { showError } = useContext(ToastContext);
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -48,7 +50,14 @@ export const Feedback: FC = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleFeedbackClose}>Отмена</Button>
-          <Button onClick={handleFeedbackClose}>Отправить</Button>
+          <Button
+            onClick={() => {
+              showError('Сообщение отправлено', 'info');
+              handleFeedbackClose();
+            }}
+          >
+            Отправить
+          </Button>
         </DialogActions>
       </Dialog>
     </>
