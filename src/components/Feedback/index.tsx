@@ -15,7 +15,7 @@ import { ToastContext } from '../../contexts/ToastContext';
 
 export const Feedback: FC = () => {
   const theme = useTheme();
-  const { showError } = useContext(ToastContext);
+  const { showMessage } = useContext(ToastContext);
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -30,7 +30,7 @@ export const Feedback: FC = () => {
   };
 
   const handleMessageSend = () => {
-    showError('Сообщение отправлено', 'info');
+    showMessage('Сообщение отправлено', 'info');
     handleFeedbackClose();
   };
   return (
