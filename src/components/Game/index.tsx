@@ -30,17 +30,19 @@ export const Game: FC = () => {
   };
   if (end) {
     return (
-      <Typography variant="h4" align="center" color="primary" gutterBottom sx={{ marginTop: 1 }}>
-        Правильных ответов&nbsp;
-        {numOfCorrectAns}&nbsp;из&nbsp;
-        {pack.questions.length}.&nbsp;
-        <br />
-        Благодарим за игру! Приходите снова :)
-      </Typography>
+      <Container component="main" maxWidth="md">
+        <Typography variant="h4" align="center" color="primary" gutterBottom sx={{ marginTop: 8 }}>
+          Правильных ответов&nbsp;
+          {numOfCorrectAns}&nbsp;из&nbsp;
+          {pack.questions.length}.&nbsp;
+          <br />
+          Благодарим за игру! Приходите снова :)
+        </Typography>
+      </Container>
     );
   }
   return (
-    <Container component="main" maxWidth="lg">
+    <Container component="main" maxWidth="md">
       <Typography variant="h4" align="center" color="primary" gutterBottom sx={{ marginTop: 1 }}>
         {pack.name}
       </Typography>
