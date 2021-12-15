@@ -2,10 +2,10 @@ import { Snackbar, Tooltip, AlertColor } from '@mui/material';
 import { createContext, FC, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { ErrorToast } from './interfaces';
+import { Toast } from './interfaces';
 import { StackStyled, AlertStyled } from './styles';
 
-export const ToastContext = createContext<ErrorToast>({} as ErrorToast);
+export const ToastContext = createContext<Toast>({} as Toast);
 
 export const ToastProvider: FC = ({ children }) => {
   const [isToastOpen, setIsToastOpen] = useState(false);
@@ -34,7 +34,7 @@ export const ToastProvider: FC = ({ children }) => {
   }
 
   return (
-    <ToastContext.Provider value={{ showError: handleToastOpen }}>
+    <ToastContext.Provider value={{ showMessage: handleToastOpen }}>
       <StackStyled spacing={2}>
         <CopyToClipboard text={message} onCopy={handleMessageCopy}>
           <Tooltip
