@@ -1,30 +1,44 @@
-import { FC, useState } from 'react';
+/* eslint-disable react/jsx-one-expression-per-line */
+import { FC, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Box, Container, Typography, TextField } from '@mui/material';
 import { withTabs } from '../../hoc/withTabs';
 import { getPackById } from '../../pages/GameCatalog/constants';
+import { ToastContext } from '../../contexts/ToastContext';
 
 export const Game: FC = () => {
+  const [end, setEnd] = useState(false);
   const [count, setCount] = useState(1);
   const [numOfCorrectAns, setNumOfCorrectAns] = useState(0);
-
+  const { showMessage } = useContext(ToastContext);
   const { id } = useParams<{ id?: string }>();
   const pack = getPackById(Number(id));
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     if (pack.questions[count - 1].answers.find((correctAnswer) => correctAnswer === formData.get('answer'))) {
-      alert('верно');
+      showMessage('Правильный ответ!', 'success');
       setNumOfCorrectAns(numOfCorrectAns + 1);
     } else {
-      alert('неверно!');
+      showMessage('Ответ неверный', 'error');
     }
     if (count + 1 <= pack.questions[count - 1].answers.length) {
       setCount(count + 1);
     } else {
-      alert(`правильных ${numOfCorrectAns}из${pack.questions.length}`);
+      setEnd(true);
     }
   };
+  if (end) {
+    return (
+      <Typography variant="h4" align="center" color="primary" gutterBottom sx={{ marginTop: 1 }}>
+        Правильных ответов&nbsp;
+        {numOfCorrectAns}&nbsp;из&nbsp;
+        {pack.questions.length}.&nbsp;
+        <br />
+        Благодарим за игру! Приходите снова :)
+      </Typography>
+    );
+  }
   return (
     <Container component="main" maxWidth="lg">
       <Typography variant="h4" align="center" color="primary" gutterBottom sx={{ marginTop: 1 }}>
