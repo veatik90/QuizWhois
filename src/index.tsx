@@ -5,14 +5,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { theme } from './theme';
-import { ErrorToastProvider } from './contexts/ErrorToastContext';
+import { ToastProvider } from './contexts/ToastContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <ErrorToastProvider>
+      <ToastProvider>
         <App />
-      </ErrorToastProvider>
+      </ToastProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
