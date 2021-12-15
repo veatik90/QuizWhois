@@ -13,6 +13,7 @@ import { CreatedGamesPage } from './pages/CreatedGames';
 import { InstantGamePage } from './pages/InstantGame';
 import { GamesArchivePage } from './pages/GamesArchive';
 import { Notifications } from './pages/Notifications';
+import { GamePage } from './components/Game';
 
 const App: FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: FC = () => {
         <Route path={Routes.CATALOG}>
           <GameCatalogPage />
         </Route>
+        <Route path="/game/:id" component={GamePage} />
         <Route path={Routes.PACK_CREATION}>
           <PackCreationPage />
         </Route>
