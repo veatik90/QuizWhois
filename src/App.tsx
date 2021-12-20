@@ -7,11 +7,16 @@ import { RandomQuestionPage } from './pages/TrainingQuiz/RandomQuestion';
 import { RandomPackPage } from './pages/TrainingQuiz/RandomPack';
 import { ReadyPackPage } from './pages/TrainingQuiz/ReadyPack';
 import { GameCatalogPage } from './pages/GameCatalog';
-import { PackCreationPage } from './pages/PackCreation';
 import { Routes } from './configs/routes';
 import { CreatedGamesPage } from './pages/CreatedGames';
 import { InstantGamePage } from './pages/InstantGame';
 import { GamesArchivePage } from './pages/GamesArchive';
+
+import { PackListPage } from './pages/Pack/List';
+import { PackCreationPage } from './pages/Pack/Create';
+import { PackUpdatePage } from './pages/Pack/Update';
+import { QuestionCrudPage } from './pages/QuestionCrud';
+
 import { Notifications } from './pages/Notifications';
 
 const App: FC = () => {
@@ -25,8 +30,17 @@ const App: FC = () => {
         <Route path={Routes.CATALOG}>
           <GameCatalogPage />
         </Route>
+        <Route path={Routes.PACK_LIST}>
+          <PackListPage />
+        </Route>
         <Route path={Routes.PACK_CREATION}>
           <PackCreationPage />
+        </Route>
+        <Route path={Routes.PACK_UPDATE}>
+          <PackUpdatePage />
+        </Route>
+        <Route path={Routes.QUESTION_CRUD}>
+          <QuestionCrudPage />
         </Route>
         <Route path={Routes.RANDOM_QUESTION}>
           <RandomQuestionPage />

@@ -4,6 +4,7 @@ export enum AppTabs {
   TRAINING = 'training',
   MOMENTARY = 'momentary',
   PACK_CREATION = 'pack-creation',
+  PACK_LIST = 'pack-list',
   MY_CREATED_GAMES = 'my-created-games',
 }
 

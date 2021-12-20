@@ -22,5 +22,17 @@ export interface PostLazyRequestResponse extends RequestResponse {
   postRequest: (url: string, body: Record<string, unknown>) => void;
 }
 
+/** Send DELETE request and obtain response.  */
+export interface DeleteLazyRequestResponse extends RequestResponse {
+  /** Method send DELETE request. */
+  deleteRequest: (url: string) => void;
+}
+
+/** Send PUT request and obtain response.  */
+export interface PutLazyRequestResponse extends RequestResponse {
+  /** Method send PUT request. */
+  putRequest: (url: string, body: Record<string, unknown>) => void;
+}
+
 /** Method */
 export type CreateRequest = (url: string, body?: Record<string, unknown>) => void;

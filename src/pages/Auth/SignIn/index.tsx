@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { AuthForm } from '../components/AuthForm';
-import { useFieldEmail } from '../components/hooks/fields/useFieldEmail';
-import { useFieldPassword } from '../components/hooks/fields/useFieldPassword';
-import { useFormValidation } from '../components/hooks/forms/useFormValidation';
-import { useFormSubmit } from '../components/hooks/forms/useFormSubmit';
+import { useFieldEmail } from '../hooks/fields/useFieldEmail';
+import { useFieldPassword } from '../hooks/fields/useFieldPassword';
+import { useFormValidation } from '../hooks/forms/useFormValidation';
+import { useFormSubmit } from '../hooks/forms/useFormSubmit';
 import { SignInProps } from './interfaces';
 
 export const SignIn: FC<SignInProps> = ({ setIsOpenedSignUp }) => {

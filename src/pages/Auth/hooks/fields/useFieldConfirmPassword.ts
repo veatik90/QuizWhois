@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { validationField } from '../../../../../components/validation/validationField';
+import { validationField } from '../../../../shared/hooks/validation/validationField';
 import { AuthField } from './interfaces';
-import { ValidationTypes } from '../../../../../shared/constants/validationConstants';
+import { ValidationTypes } from '../../../../shared/constants/validationConstants';
 
 export const useFieldConfirmPassword = (passwordValue: string): AuthField => {
   const [value, setValue] = useState('');

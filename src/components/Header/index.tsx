@@ -5,7 +5,6 @@ import {
   AppBar,
   IconButton,
   Typography,
-  Menu,
   MenuItem,
   Button,
   Badge,
@@ -18,6 +17,7 @@ import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
+import { MenuStyled } from '../../pages/QuestionCrud/styles';
 import { Feedback } from '../Feedback';
 import { PACKS } from '../../pages/Notifications/constants';
 import { Pack } from '../../pages/Notifications/interfaces';
@@ -124,7 +124,8 @@ export const Header: FC = () => {
               >
                 <AccountCircle />
               </IconButton>
-              <Menu
+              <MenuStyled
+                className="app-bar-menu"
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -154,7 +155,7 @@ export const Header: FC = () => {
                 <LogoutStyled className="logout-menu-item" onClick={handleLogout}>
                   Logout
                 </LogoutStyled>
-              </Menu>
+              </MenuStyled>
             </div>
           ) : (
             <div>

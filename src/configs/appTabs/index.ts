@@ -27,9 +27,14 @@ export const appTabsConfig: Tabs = {
     order: 4,
     url: Routes.PACK_CREATION,
   },
+  [AppTabs.PACK_LIST]: {
+    label: 'Мои пакеты',
+    order: 5,
+    url: Routes.PACK_LIST,
+  },
   [AppTabs.MY_CREATED_GAMES]: {
     label: 'Мои созданные игры',
-    order: 5,
+    order: 6,
     url: Routes.MY_CREATED_GAMES,
   },
 };
