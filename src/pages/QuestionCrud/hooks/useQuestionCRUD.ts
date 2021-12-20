@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { SyntheticEvent, useState } from 'react';
 import * as React from 'react';
 import { useLocation } from 'react-router';
@@ -16,9 +14,9 @@ export const useQuestionCRUD = () => {
   }
 
   const [questions, setQuestions] = useState<IQuestion[]>(data);
-  const [id, setId] = useState(0);
-  const [answer, setAnswer] = useState('example');
+  const [id, setId] = useState(questions.length);
   const [isEdit, setIsEdit] = useState(false);
+  const [answer, setAnswer] = useState('example');
   const [answers, setAnswers] = useState<string[]>([]);
   const [question, setQuestion] = useState('');
 
@@ -38,7 +36,7 @@ export const useQuestionCRUD = () => {
     setQuestions(tmpQuestions);
     setAnswers([]);
     setQuestion('');
-    setId(questions.length);
+    setId(id + 1);
     setIsEdit(false);
   };
 
@@ -88,5 +86,6 @@ export const useQuestionCRUD = () => {
     answer,
     isEdit,
     questions,
+    setQuestions,
   };
 };

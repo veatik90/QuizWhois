@@ -8,6 +8,7 @@ export enum Routes {
   PACK_CREATION = '/pack-create',
   PACK_UPDATE = '/pack-update',
   QUESTION_CRUD = '/question-crud',
+  QUESTION_CREATION = '/question-creation/:packId',
   ROOT = '/',
   TRAINING = '/training',
   READY_PACK = '/training/readyPack',
