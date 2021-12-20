@@ -1,5 +1,5 @@
 import { Global } from '@emotion/react';
-import { List, ListItem, ListItemButton, SwipeableDrawer, Typography, useTheme } from '@mui/material';
+import { Divider, List, ListItem, ListItemButton, SwipeableDrawer, Typography, useTheme } from '@mui/material';
 import { FC, useState } from 'react';
 import { drawerBleeding } from '../../../../shared/constants';
 import { IDrower } from './interfaces';
@@ -21,7 +21,6 @@ export const SwipeableEdgeDrawer: FC<IDrower> = ({ questions, handleQuestionQlic
 
   return (
     <>
-      {/* <CssBaseline /> */}
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
@@ -51,16 +50,19 @@ export const SwipeableEdgeDrawer: FC<IDrower> = ({ questions, handleQuestionQlic
           <List>
             {questions.length > 0 ? (
               questions.map((elem, index) => (
-                <ListItem key={elem.id} disablePadding>
-                  <ListItemButton
-                    onClick={() => {
-                      handleQuestionQlick(elem.id);
-                      setOpen(false);
-                    }}
-                  >
-                    <ListItemTextStyled theme={theme} primary={`${index + 1}) ${elem.question}`} />
-                  </ListItemButton>
-                </ListItem>
+                <>
+                  <ListItem key={elem.id} disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        handleQuestionQlick(elem.id);
+                        setOpen(false);
+                      }}
+                    >
+                      <ListItemTextStyled theme={theme} primary={`${index + 1}) ${elem.question}`} />
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider component="li" />
+                </>
               ))
             ) : (
               <Typography align="center" color="gray">

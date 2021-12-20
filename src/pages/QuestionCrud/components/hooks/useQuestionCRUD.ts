@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { SyntheticEvent, useState } from 'react';
 import * as React from 'react';
 import { useLocation } from 'react-router';
@@ -16,9 +14,9 @@ export const useQuestionCRUD = () => {
   }
 
   const [questions, setQuestions] = useState<IQuestion[]>(data);
-  const [id, setId] = useState(0);
-  const [answer, setAnswer] = useState('example');
+  const [id, setId] = useState(questions.length);
   const [isEdit, setIsEdit] = useState(false);
+  const [answer, setAnswer] = useState('example');
   const [answers, setAnswers] = useState<string[]>([]);
   const [question, setQuestion] = useState('');
 
@@ -35,10 +33,23 @@ export const useQuestionCRUD = () => {
       tmpQuestions.push({ id, packet_id: packetId, question, answers });
     }
 
+    const isNotNewQuestion = questions.filter((elem) => elem.id === id).length === 1;
+    if (isNotNewQuestion) {
+      for (let i = 0; i < questions.length; i += 1) {
+        if (questions[i].id === id) {
+          tmpQuestions[i] = { id, question, answers, packet_id: packetId };
+          break;
+        }
+      }
+    } else {
+      tmpQuestions.push({ id, question, answers, packet_id: packetId });
+    }
+
+    // TODO: в данной функции без setQuestions происходит присвоение useState question. Как?!
     setQuestions(tmpQuestions);
     setAnswers([]);
     setQuestion('');
-    setId(questions.length);
+    setId(id + 1);
     setIsEdit(false);
   };
 
@@ -88,5 +99,6 @@ export const useQuestionCRUD = () => {
     answer,
     isEdit,
     questions,
+    setQuestions,
   };
 };
