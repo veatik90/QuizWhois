@@ -5,15 +5,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { NavLink } from 'react-router-dom';
-import { useSubmitCreateQuiz } from './components/hooks/useSubmitCreateQuiz';
-import { useFieldValidation } from '../../shared/utils/validation/hooks/useFieldValidation';
-import { useFormValidation } from '../../shared/utils/validation/hooks/useFormValidation';
-import { ValidationTypes } from '../../shared/constants/validationConstants';
-import { withTabs } from '../../hoc/withTabs';
+// import { NavLink } from 'react-router-dom';
+import { useSubmitCreatePack } from './components/hooks/useSubmitCreatePack';
+import { useFieldValidation } from '../../../shared/utils/validation/hooks/useFieldValidation';
+import { useFormValidation } from '../../../shared/utils/validation/hooks/useFormValidation';
+import { ValidationTypes } from '../../../shared/constants/validationConstants';
+import { withTabs } from '../../../hoc/withTabs';
 
 const PackCreation: FC = () => {
-  const { handleSubmitCreateQuiz } = useSubmitCreateQuiz();
+  const { handleSubmitCreatePack } = useSubmitCreatePack();
   const {
     errorDisplay: nameErrorDisplay,
     errorValidation: nameErrorValidation,
@@ -34,7 +34,7 @@ const PackCreation: FC = () => {
       <Typography component="h1" variant="h5" sx={{ mt: 4, mb: 2, textAlign: 'center' }}>
         Создание пакета
       </Typography>
-      <Box component="form" onSubmit={handleSubmitCreateQuiz} noValidate sx={{ mt: 1 }}>
+      <Box component="form" onSubmit={handleSubmitCreatePack} noValidate sx={{ mt: 1 }}>
         <TextField
           onChange={nameHandleChange}
           error={nameErrorDisplay}
@@ -42,8 +42,8 @@ const PackCreation: FC = () => {
           margin="normal"
           required
           fullWidth
-          id="quizName"
-          name="quizName"
+          id="name"
+          name="name"
           label="Название пакета"
           autoFocus
           multiline
@@ -55,14 +55,14 @@ const PackCreation: FC = () => {
           margin="normal"
           required
           fullWidth
-          id="quizDescription"
-          name="quizDescription"
+          id="description"
+          name="description"
           label="Описание пакета"
           multiline
         />
         <Button
-          component={NavLink}
-          to="/question-creation"
+          // component={NavLink}
+          // to="/question-creation"
           disabled={isDisabledSubmit}
           type="submit"
           variant="contained"

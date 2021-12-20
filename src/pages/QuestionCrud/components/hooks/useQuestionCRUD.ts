@@ -2,10 +2,20 @@
 
 import { SyntheticEvent, useState } from 'react';
 import * as React from 'react';
+import { useLocation } from 'react-router';
 import { IQuestion } from '../../interfaces';
+import { getPackById } from '../../../../shared/mocks/packsMock';
 
 export const useQuestionCRUD = () => {
-  const [questions, setQuestions] = useState<IQuestion[]>([]);
+  const location = useLocation().pathname.split('/');
+  let packetId: number | null = null;
+  let data: IQuestion[] = [];
+  if (location.length === 3) {
+    packetId = Number(location.pop());
+    data = getPackById(packetId).questions;
+  }
+
+  const [questions, setQuestions] = useState<IQuestion[]>(data);
   const [id, setId] = useState(0);
   const [answer, setAnswer] = useState('example');
   const [isEdit, setIsEdit] = useState(false);
@@ -20,9 +30,9 @@ export const useQuestionCRUD = () => {
     const tmpQuestions = [...questions];
     const questionIndex = tmpQuestions.findIndex((elem) => elem.id === id);
     if (questionIndex >= 0) {
-      tmpQuestions[questionIndex] = { id, question, answers };
+      tmpQuestions[questionIndex] = { id, packet_id: packetId, question, answers };
     } else {
-      tmpQuestions.push({ id, question, answers });
+      tmpQuestions.push({ id, packet_id: packetId, question, answers });
     }
 
     setQuestions(tmpQuestions);

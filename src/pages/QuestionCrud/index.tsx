@@ -17,7 +17,7 @@ import { withTabs } from '../../hoc/withTabs';
 import { useQuestionCRUD } from './components/hooks/useQuestionCRUD';
 import { useQuestionValidation } from './components/hooks/useQuestionValidation';
 
-const QuestionCreation: FC = () => {
+const QuestionCrud: FC = () => {
   const {
     handleChangeQuestion,
     handleChangeAnswers,
@@ -172,4 +172,4 @@ const QuestionCreation: FC = () => {
   );
 };
 
-export const QuestionCreationPage = withTabs(QuestionCreation);
+export const QuestionCrudPage = withTabs(QuestionCrud);

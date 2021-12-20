@@ -3,10 +3,10 @@ import { validationField } from '../validationField';
 import { FieldName } from './interfaces';
 import { Validation } from '../interfaces';
 
-export const useFieldValidation = (validations: Validation[]): FieldName => {
+export const useFieldValidation = (validations: Validation[], defaultDisabled = true): FieldName => {
   const [value, setValue] = useState('');
   const [errorDisplay, setErrorDisplay] = useState(false);
-  const [errorValidation, setErrorValidation] = useState(true);
+  const [errorValidation, setErrorValidation] = useState(defaultDisabled);
   const [helperText, setHelperText] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {

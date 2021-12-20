@@ -40,3 +40,19 @@ export function createPostRequest(
 ): CreateRequest {
   return createRequest(HttpMethod.POST, onSuccess, onError, onLoading);
 }
+
+export function createDeleteRequest(
+  onSuccess: Dispatch<AxiosResponse | null>,
+  onError: Dispatch<AxiosResponse | undefined | null>,
+  onLoading: Dispatch<boolean>,
+): CreateRequest {
+  return createRequest(HttpMethod.DELETE, onSuccess, onError, onLoading);
+}
+
+export function createPutRequest(
+  onSuccess: Dispatch<AxiosResponse | null>,
+  onError: Dispatch<AxiosResponse | undefined | null>,
+  onLoading: Dispatch<boolean>,
+): CreateRequest {
+  return createRequest(HttpMethod.PUT, onSuccess, onError, onLoading);
+}

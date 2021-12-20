@@ -7,7 +7,7 @@ import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
-import { MenuStyled } from '../../pages/QuestionCreation/styles';
+import { MenuStyled } from '../../pages/QuestionCrud/styles';
 
 export const Header: FC = () => {
   const [isAuth, setIsAuth] = useState(true);
