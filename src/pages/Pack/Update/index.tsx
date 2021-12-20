@@ -5,11 +5,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-// import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router';
-import { useSubmitCreatePack } from './components/hooks/useSubmitCreatePack';
-import { useFieldValidation } from '../../../shared/utils/validation/hooks/useFieldValidation';
-import { useFormValidation } from '../../../shared/utils/validation/hooks/useFormValidation';
+import { useSubmitCreatePack } from './hooks/useSubmitCreatePack';
+import { useFieldValidation } from '../../../shared/hooks/validation/hooks/useFieldValidation';
+import { useFormValidation } from '../../../shared/hooks/validation/hooks/useFormValidation';
 import { ValidationTypes } from '../../../shared/constants/validationConstants';
 import { withTabs } from '../../../hoc/withTabs';
 import { getPackById } from '../../../shared/mocks/packsMock';
@@ -81,8 +81,8 @@ const PackUpdate: FC = () => {
           multiline
         />
         <Button
-          // component={NavLink}
-          // to="/question-creation"
+          component={NavLink}
+          to={`/question-crud/${packId}`}
           disabled={isDisabledSubmit}
           type="submit"
           variant="contained"

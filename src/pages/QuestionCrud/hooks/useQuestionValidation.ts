@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useFieldValidation } from '../../../../shared/utils/validation/hooks/useFieldValidation';
-import { ValidationTypes } from '../../../../shared/constants/validationConstants';
-import { useFormValidation } from '../../../../shared/utils/validation/hooks/useFormValidation';
-import { IQuestion } from '../../interfaces';
+import { useFieldValidation } from '../../../shared/hooks/validation/hooks/useFieldValidation';
+import { ValidationTypes } from '../../../shared/constants/validationConstants';
+import { useFormValidation } from '../../../shared/hooks/validation/hooks/useFormValidation';
+import { IQuestion } from '../interfaces';
 
 export const useQuestionValidation = () => {
   const [isDisabledSubmitPack, setIsDisabledSubmitPack] = useState(true);

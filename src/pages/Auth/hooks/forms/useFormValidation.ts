@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { validateForm } from '../../../../../shared/utils/validation/validateForm';
+import { validateForm } from '../../../../shared/hooks/validation/validateForm';
 import { FormValidation } from './interfaces';
 
 export const useFormValidation = (

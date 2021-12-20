@@ -5,12 +5,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { CircularProgress, IconButton } from '@mui/material';
 import { ButtonProps } from './interfaces';
 
-export const DeleteButton: FC<ButtonProps> = ({ packId }) => {
+export const DeleteButton: FC<ButtonProps> = ({ packId, packs, setPacks }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const newPacks = [...packs];
 
   const handleClickButton = () => {
-    console.log(packId);
-
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -21,6 +20,9 @@ export const DeleteButton: FC<ButtonProps> = ({ packId }) => {
         error: '',
         data: [],
       });
+
+      newPacks.splice(packId - 1, 1);
+      setPacks(newPacks);
     }, 1000);
   };
 

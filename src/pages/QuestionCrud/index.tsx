@@ -14,8 +14,8 @@ import {
   SavePackButtonStyled,
 } from './styles';
 import { withTabs } from '../../hoc/withTabs';
-import { useQuestionCRUD } from './components/hooks/useQuestionCRUD';
-import { useQuestionValidation } from './components/hooks/useQuestionValidation';
+import { useQuestionCRUD } from './hooks/useQuestionCRUD';
+import { useQuestionValidation } from './hooks/useQuestionValidation';
 
 const QuestionCrud: FC = () => {
   const {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { validationField } from '../../../../../shared/utils/validation/validationField';
+import { validationField } from '../../../../shared/hooks/validation/validationField';
 import { AuthField } from './interfaces';
-import { ValidationTypes } from '../../../../../shared/constants/validationConstants';
+import { ValidationTypes } from '../../../../shared/constants/validationConstants';
 
 export const useFieldEmail = (): AuthField => {
   const [value, setValue] = useState('');

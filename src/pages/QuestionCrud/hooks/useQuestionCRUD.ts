@@ -3,8 +3,8 @@
 import { SyntheticEvent, useState } from 'react';
 import * as React from 'react';
 import { useLocation } from 'react-router';
-import { IQuestion } from '../../interfaces';
-import { getPackById } from '../../../../shared/mocks/packsMock';
+import { IQuestion } from '../interfaces';
+import { getPackById } from '../../../shared/mocks/packsMock';
 
 export const useQuestionCRUD = () => {
   const location = useLocation().pathname.split('/');

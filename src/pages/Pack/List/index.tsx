@@ -1,5 +1,5 @@
 import { Box, Grid, List, ListItem, ListItemText } from '@mui/material';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
@@ -13,7 +13,7 @@ import { EditPackButton } from './components/EditPackButton';
 import { QuestionCrudButton } from './components/QuestionCrudButton';
 
 const PackList: FC = () => {
-  const packs = packsMock;
+  const [packs, setPacks] = useState(packsMock);
   const { handleClickCreateButton } = useButton();
 
   return (
@@ -30,11 +30,11 @@ const PackList: FC = () => {
           <Grid item xs={12} md={12}>
             <List>
               {packs.map((pack: Pack) => (
-                <ListItem>
-                  <ListItemText primary={pack.name} />
-                  <QuestionCrudButton packId={pack.id} />
-                  <EditPackButton packId={pack.id} />
-                  <DeleteButton packId={pack.id} />
+                <ListItem key={pack.id}>
+                  <ListItemText primary={pack.name} key={1 + pack.id} />
+                  <QuestionCrudButton packId={pack.id} key={2 + pack.id} />
+                  <EditPackButton packId={pack.id} key={3 + pack.id} />
+                  <DeleteButton packId={pack.id} key={4 + pack.id} packs={packs} setPacks={setPacks} />
                 </ListItem>
               ))}
             </List>

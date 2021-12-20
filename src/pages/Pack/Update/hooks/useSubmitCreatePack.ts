@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { SubmitCreatePack } from './interfaces';
-import { useAxiosPostLazy } from '../../../../../hooks/axios/useAxiosPostLazy';
+import { useAxiosPostLazy } from '../../../../hooks/axios/useAxiosPostLazy';
 
 export const useSubmitCreatePack = (): SubmitCreatePack => {
   const { postRequest, response, error, isLoading } = useAxiosPostLazy();
