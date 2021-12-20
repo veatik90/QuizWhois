@@ -15,4 +15,5 @@ export enum Routes {
   RANDOM_PACK = '/training/randomPack',
   RANDOM_QUESTION = '/training/randomQuestion',
   MY_CREATED_GAMES = '/created-games',
+  NOTIFICATIONS = '/notifications',
 }

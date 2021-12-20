@@ -11,10 +11,13 @@ import { Routes } from './configs/routes';
 import { CreatedGamesPage } from './pages/CreatedGames';
 import { InstantGamePage } from './pages/InstantGame';
 import { GamesArchivePage } from './pages/GamesArchive';
+
 import { PackListPage } from './pages/Pack/List';
 import { PackCreationPage } from './pages/Pack/Create';
 import { PackUpdatePage } from './pages/Pack/Update';
 import { QuestionCrudPage } from './pages/QuestionCrud';
+
+import { Notifications } from './pages/Notifications';
 
 const App: FC = () => {
   return (
@@ -56,6 +59,9 @@ const App: FC = () => {
         </Route>
         <Route path={Routes.ARCHIVE}>
           <GamesArchivePage />
+        </Route>
+        <Route path={Routes.NOTIFICATIONS}>
+          <Notifications />
         </Route>
         <Route path={Routes.NOT_FOUND}>
           <NotFound />

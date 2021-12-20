@@ -1,13 +1,27 @@
-import { FormGroup, FormControlLabel, Toolbar, AppBar, IconButton, Typography, MenuItem, Button } from '@mui/material';
+import {
+  FormGroup,
+  FormControlLabel,
+  Toolbar,
+  AppBar,
+  IconButton,
+  Typography,
+  MenuItem,
+  Button,
+  Badge,
+} from '@mui/material';
 import React, { FC, useState } from 'react';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import CheckIcon from '@mui/icons-material/Check';
-import EmailIcon from '@mui/icons-material/Email';
 import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 import { BoxStyled, SecondaryTextWithBorderStyled, LoginTypographyStyled, LogoutStyled } from './styles';
 import { IUserInfo } from './interfaces';
 import { MenuStyled } from '../../pages/QuestionCrud/styles';
+import { Feedback } from '../Feedback';
+import { PACKS } from '../../pages/Notifications/constants';
+import { Pack } from '../../pages/Notifications/interfaces';
+import { Routes } from '../../configs/routes';
 
 export const Header: FC = () => {
   const [isAuth, setIsAuth] = useState(true);
@@ -17,7 +31,9 @@ export const Header: FC = () => {
     login: 'user',
     roles: { isAdmin: true, isPlayer: false },
   });
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [packs, setPacks] = useState<Pack[]>(PACKS);
+  const filteredPacks = packs.filter((p) => p.isDraft === true);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsAuth(event.target.checked);
   };
@@ -86,9 +102,17 @@ export const Header: FC = () => {
           </Typography>
           {isAuth ? (
             <div>
-              <IconButton size="large" color="inherit">
-                <EmailIcon />
-                <Typography variant="body2">Обратная связь </Typography>
+              <Feedback />
+              <IconButton
+                component={NavLink}
+                to={Routes.NOTIFICATIONS}
+                size="large"
+                aria-label="notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={filteredPacks.length} color="error">
+                  <NotificationsIcon />
+                </Badge>
               </IconButton>
               <IconButton
                 size="large"
